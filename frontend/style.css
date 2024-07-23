@@ -1,0 +1,29 @@
+* {
+  --color-background: #18191a;
+  --color-card: #242526;
+  --color-hover: #3a3b3c;
+  --color-primary-text: #e4e6eb;
+  --color-secondary-text: #b0b3b8;
+}
+head {
+}
+
+html {
+  
+}
+
+body {
+  background-color: var(--color-background);
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0;
+  margin: 0;
+}
+
+.container{
+    color: var(--color-primary-text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
