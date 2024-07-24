@@ -1,0 +1,169 @@
+* {
+  --cardShadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  --colorPrimary: #f56b1d;
+  --colorSecondary: #f56b1d;
+  --colorBackground: #18191a;
+  --colorCard: #242526;
+  --colorHover: #3a3b3c;
+  --colorPrimaryText: #e4e6eb;
+  --colorSecondaryText: #b0b3b8;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--colorBackground);
+}
+
+body,
+input::placeholder,
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/*flexes landingHeader with landingKeywords*/
+.container {
+  color: var(--colorPrimaryText);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 75px;
+}
+
+/*flexes h1 and p inside the header*/
+#landingHeader {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  row-gap: 10px;
+}
+
+#landingHeader #landingHeaderTitle {
+  max-width: 85%;
+  font-size: 28px;
+}
+
+.landingHeaderTitleMTG {
+  color: var(--colorPrimary);
+}
+
+#landingHeader p,
+.cardDescription {
+  color: var(--colorSecondaryText);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.8rem;
+  max-width: 80%;
+}
+
+/*flexes searchBar with cardHolder*/
+.landingKeywords {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 4px;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+}
+
+.searchBar button {
+  width: 15vw;
+  border-radius: 0rem 1rem 1rem 0rem;
+  background-color: var(--colorPrimary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  float: left;
+  box-shadow: var(--cardShadow);
+}
+
+.searchBar button:hover {
+  background-color: var(--colorSecondaryText);
+}
+
+.searchBar input {
+  width: 70vw;
+  padding: 10px;
+  border-radius: 1rem 0rem 0rem 1rem;
+  background-color: var(--colorHover);
+  float: left;
+  color: var(--colorPrimaryText);
+  box-shadow: var(--cardShadow);
+}
+
+.searchBar input:focus {
+  outline: 2px solid var(--colorSecondaryText);
+}
+
+#searchIcon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.searchBar button,
+.searchBar input {
+  border: none;
+  height: 7vh;
+}
+
+/*flexes card classes*/
+.cardHolder {
+  width: 90vw;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  column-gap: 4px;
+  row-gap: 26px;
+  margin-bottom: 40px;
+}
+
+/*flexes cardTitle with cardDescription*/
+.card {
+  min-width: 300px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colorCard);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 0.2rem;
+  gap: 20px;
+  box-shadow: var(--cardShadow);
+}
+
+.card .cardTitle {
+  font-size: 20px;
+}
+
+.card .cardDescription {
+  text-align: left;
+  font-size: 16px;
+}
+
+.lineBreak,
+.cardLineBreak {
+  border: 1px inset var(--colorBackground);
+}
+
+.lineBreak {
+  width: 75vw;
+}
+
+.cardLineBreak {
+  width: 200px;
+}
