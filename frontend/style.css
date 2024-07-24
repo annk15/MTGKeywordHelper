@@ -1,6 +1,7 @@
 * {
-  --colorPrimary: #F56B1D;
-  --colorSecondary: #F56B1D;
+  --cardShadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  --colorPrimary: #f56b1d;
+  --colorSecondary: #f56b1d;
   --colorBackground: #18191a;
   --colorCard: #242526;
   --colorHover: #3a3b3c;
@@ -50,8 +51,8 @@ h1 {
   font-size: 28px;
 }
 
-#landingHeaderTitleMTG{
-  color: #F56B1D;
+.landingHeaderTitleMTG {
+  color: var(--colorPrimary);
 }
 
 #landingHeader p,
@@ -80,13 +81,13 @@ h1 {
 .searchBar button {
   width: 15vw;
   border-radius: 0rem 1rem 1rem 0rem;
-  background-color: var(--colorSecondary);
+  background-color: var(--colorPrimary);
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.3s;
   float: left;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  box-shadow: var(--cardShadow);
 }
 
 .searchBar button:hover {
@@ -100,7 +101,7 @@ h1 {
   background-color: var(--colorHover);
   float: left;
   color: var(--colorPrimaryText);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  box-shadow: var(--cardShadow);
 }
 
 .searchBar input:focus {
@@ -142,7 +143,7 @@ h1 {
   padding-bottom: 20px;
   border-radius: 0.2rem;
   gap: 20px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: var(--cardShadow);
 }
 
 .card .cardTitle {
@@ -159,10 +160,10 @@ h1 {
   border: 1px inset var(--colorBackground);
 }
 
-.lineBreak{
+.lineBreak {
   width: 75vw;
 }
 
-.cardLineBreak{
+.cardLineBreak {
   width: 200px;
 }
