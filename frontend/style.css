@@ -120,7 +120,7 @@ h1 {
 }
 
 /*flexes card classes*/
-.cardHolder {
+#cardHolder {
   width: 90vw;
   display: flex;
   justify-content: space-evenly;
