@@ -22,6 +22,7 @@ h1 {
   font-weight: 400;
   font-style: normal;
 }
+
 /*flexes landingHeader with landingKeywords*/
 .container {
   color: var(--colorPrimaryText);
@@ -32,6 +33,7 @@ h1 {
   justify-content: space-around;
   gap: 75px;
 }
+
 /*flexes h1 and p inside the header*/
 #landingHeader {
   height: 30vh;
@@ -42,9 +44,11 @@ h1 {
   margin-top: 100px;
   row-gap: 10px;
 }
+
 #landingHeader #landingHeaderTitle {
   max-width: 95%;
 }
+
 #landingHeader p,
 .cardDescription {
   color: var(--colorSecondaryText);
@@ -53,6 +57,7 @@ h1 {
   font-size: 0.8rem;
   max-width: 80%;
 }
+
 /*flexes searchBar with cardHolder*/
 .landingKeywords {
   display: flex;
@@ -76,11 +81,11 @@ h1 {
   align-items: center;
   transition: 0.3s;
   float: left;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .searchBar button:hover {
   background-color: var(--colorSecondaryText);
-  border-left: 1px solid var(--colorBackground);
 }
 
 .searchBar input {
@@ -90,6 +95,7 @@ h1 {
   background-color: var(--colorHover);
   float: left;
   color: var(--colorPrimaryText);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .searchBar input:focus {
@@ -117,6 +123,7 @@ h1 {
   row-gap: 26px;
   margin-bottom: 40px;
 }
+
 /*flexes cardTitle with cardDescription*/
 .card {
   min-width: 300px;
@@ -130,6 +137,7 @@ h1 {
   padding-bottom: 20px;
   border-radius: 0.2rem;
   gap: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .card .cardTitle {
@@ -141,7 +149,15 @@ h1 {
   font-size: 16px;
 }
 
-.lineBreak {
+.lineBreak,
+.cardLineBreak {
   border: 1px inset var(--colorBackground);
+}
+
+.lineBreak{
   width: 75vw;
+}
+
+.cardLineBreak{
+  width: 200px;
 }
