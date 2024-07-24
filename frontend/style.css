@@ -1,29 +1,116 @@
 * {
-  --color-background: #18191a;
-  --color-card: #242526;
-  --color-hover: #3a3b3c;
-  --color-primary-text: #e4e6eb;
-  --color-secondary-text: #b0b3b8;
-}
-head {
-}
-
-html {
-  
+  --colorPrimary: #3a3b3c;
+  --colorSecondary: #5D0E41;
+  --colorBackground: #18191a;
+  --colorCard: #242526;
+  --colorHover: #3a3b3c;
+  --colorPrimaryText: #e4e6eb;
+  --colorSecondaryText: #b0b3b8;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: var(--color-background);
+  background-color: var(--colorBackground);
+  display: flex;
+}
+
+body,
+input::placeholder,
+h1 {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
-  padding: 0;
-  margin: 0;
+}
+/*flexes landingHeader with landingKeywords*/
+.container {
+  color: var(--colorPrimaryText);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+  gap: 100px;
+}
+/*flexes h1 and p inside the header*/
+#landingHeader {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  row-gap: 10px;
+}
+#landingHeader #landingHeaderTitle{
+    max-width: 95%;
+}
+#landingHeader p,
+.cardDescription {
+  color: var(--colorSecondaryText);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.8rem;
+  max-width: 80%;
+}
+/*flexes searchBar with cardHolder*/
+.landingKeywords {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 4px;
 }
 
-.container{
-    color: var(--color-primary-text);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+.searchBar {
+  display: flex;
+  justify-content: center;
+}
+
+.searchBar button {
+  width: 15vw;
+  border-radius: 0rem 1rem 1rem 0rem;
+  background-color: var(--colorPrimary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBar input {
+  width: 55vw;
+  padding: 10px;
+  border-radius: 1rem 0rem 0rem 1rem;
+  background-color: var(--colorHover);
+}
+
+#searchIcon{
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.searchBar button,
+.searchBar input {
+  border: none;
+  height: 7vh;
+}
+
+/*flexes card classes*/
+.cardHolder {
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+/*flexes cardTitle with cardDescription*/
+.card {
+  width: 48vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colorCard);
+}
+
+.card,
+.searchBar button{
+    background-color: var(--colorCard);
 }
