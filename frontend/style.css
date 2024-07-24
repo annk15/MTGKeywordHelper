@@ -1,6 +1,6 @@
 * {
-  --colorPrimary: #3a3b3c;
-  --colorSecondary: #5d0e41;
+  --colorPrimary: #F56B1D;
+  --colorSecondary: #F56B1D;
   --colorBackground: #18191a;
   --colorCard: #242526;
   --colorHover: #3a3b3c;
@@ -46,7 +46,12 @@ h1 {
 }
 
 #landingHeader #landingHeaderTitle {
-  max-width: 95%;
+  max-width: 85%;
+  font-size: 28px;
+}
+
+#landingHeaderTitleMTG{
+  color: #F56B1D;
 }
 
 #landingHeader p,
@@ -75,7 +80,7 @@ h1 {
 .searchBar button {
   width: 15vw;
   border-radius: 0rem 1rem 1rem 0rem;
-  background-color: var(--colorCard);
+  background-color: var(--colorSecondary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,7 +142,7 @@ h1 {
   padding-bottom: 20px;
   border-radius: 0.2rem;
   gap: 20px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .card .cardTitle {
