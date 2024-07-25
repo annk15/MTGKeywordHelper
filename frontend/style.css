@@ -17,14 +17,13 @@ body {
 }
 
 body,
-input::placeholder,
-h1 {
-  font-family: "Poppins", sans-serif;
+h1,
+input::placeholder {
+  font-family: Poppins, sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
-/*flexes landingHeader with landingKeywords*/
 .container {
   color: var(--colorPrimaryText);
   text-align: center;
@@ -36,15 +35,12 @@ h1 {
   gap: 50px;
 }
 
-/*flexes h1 and p inside the header*/
 #landingHeader {
-  /*make header unselectable with cursor for most browsers*/
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
   user-select: none;
-
   height: 30vh;
   display: flex;
   flex-direction: column;
@@ -67,11 +63,10 @@ h1 {
 .cardDescription {
   color: var(--colorSecondaryText);
   font-weight: 400;
-  font-size: 0.8rem;
+  font-size: .8rem;
   max-width: 80%;
 }
 
-/*flexes searchBar with cardHolder*/
 .landingKeywords {
   display: flex;
   flex-direction: column;
@@ -87,12 +82,12 @@ h1 {
 
 .searchBar button {
   width: 15vw;
-  border-radius: 0rem 1rem 1rem 0rem;
+  border-radius: 0 1rem 1rem 0;
   background-color: var(--colorPrimary);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.3s;
+  transition: .3s;
   float: left;
   box-shadow: var(--cardShadow);
 }
@@ -104,7 +99,7 @@ h1 {
 .searchBar input {
   width: 70vw;
   padding: 10px;
-  border-radius: 1rem 0rem 0rem 1rem;
+  border-radius: 1rem 0 0 1rem;
   background-color: var(--colorHover);
   float: left;
   color: var(--colorPrimaryText);
@@ -127,7 +122,6 @@ h1 {
   height: 54px;
 }
 
-/*flexes card classes*/
 #cardHolder {
   width: 90vw;
   display: flex;
@@ -137,7 +131,6 @@ h1 {
   margin-bottom: 40px;
 }
 
-/*flexes cardTitle with cardDescription*/
 .card {
   max-width: 400px;
   display: flex;
@@ -147,7 +140,7 @@ h1 {
   background-color: var(--colorCard);
   padding-top: 20px;
   padding-bottom: 20px;
-  border-radius: 0.2rem;
+  border-radius: .2rem;
   gap: 10px;
   box-shadow: var(--cardShadow);
 }
@@ -161,7 +154,6 @@ h1 {
   font-size: 16px;
 }
 
-
 .cardLineBreak {
   border: 1px inset var(--colorBackground);
 }
@@ -170,8 +162,7 @@ h1 {
   width: 200px;
 }
 
-/*on bigger screens than phones and some ipads*/
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width:769px) and (max-width:1024px) {
   #landingHeader {
     margin-top: 275px;
   }
@@ -183,7 +174,6 @@ h1 {
 
   #cardHolder {
     width: 97vw;
-
   }
 
   .card {
@@ -208,11 +198,9 @@ h1 {
   .searchBar button {
     width: 50px;
   }
-
 }
 
-/*larger screens e.g desktops*/
-@media (min-width: 1025px) {
+@media (min-width:1025px) {
   .container {
     height: 100vh;
     color: var(--colorPrimaryText);
@@ -237,7 +225,7 @@ h1 {
   .cardDescription {
     color: var(--colorSecondaryText);
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: .8rem;
     max-width: 80%;
   }
 
