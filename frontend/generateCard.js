@@ -9,6 +9,7 @@ const titles = [
     'First Strike',
     'Lifelink'
 ];
+
 const descriptions = [
     'Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)',
     'Haste (This creature can attack and {T} as soon as it comes under your control.)',
@@ -42,13 +43,20 @@ function makeCard(title, description) {
     return card;
 }
 
-
-
-function generateCards(){
-    for(let i = 0; i < titles.length; i++){
-        const card1 = makeCard(titles[i], descriptions[i]);
-        cardHolder.appendChild(card1);
+function generateCards() {
+    for (let i = 0; i < titles.length; i++) {
+        const cards = makeCard(titles[i], descriptions[i]);
+        cardHolder.appendChild(cards);
     }
 }
 
 generateCards();
+
+//temp obj version of card
+/* const cardValue = {
+    title:"Deathtouch",
+    description:"Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)"
+}
+
+const cardTest = makeCard(cardValue.title, cardValue.description);
+cardHolder.appendChild(cardTest); */
