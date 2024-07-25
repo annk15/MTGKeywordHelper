@@ -49,8 +49,10 @@ function generateCards() {
         cardHolder.appendChild(cards);
     }
 }
+for(let i = 0; i < 10; i++){
+    generateCards();
 
-generateCards();
+}
 
 //temp obj version of card
 /* const cardValue = {
