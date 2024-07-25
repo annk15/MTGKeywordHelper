@@ -1,6 +1,26 @@
 const cardHolder = document.getElementById('cardHolder');
+const titles = [
+    'Deathtouch',
+    'Haste',
+    'Flying',
+    'Reach',
+    'Hexproof',
+    'Double Strike',
+    'First Strike',
+    'Lifelink'
+];
+const descriptions = [
+    'Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)',
+    'Haste (This creature can attack and {T} as soon as it comes under your control.)',
+    "Flying (This creature can't be blocked except by creatures with flying and/or reach.)",
+    "Reach (This creature can block creatures with flying.)",
+    "Hexproof (This permanent can't be the target of spells or abilities your opponents control.)",
+    "Double strike (This creature deals both first-strike and regular combat damage.)",
+    "First strike (This creature deals combat damage before creatures without first strike.)",
+    "Lifelink (Damage dealt by this creature also causes you to gain that much life.)"
+];
 
-function generateCard(title, description) {
+function makeCard(title, description) {
     const card = document.createElement('div');
     card.classList.add('card');
 
@@ -22,6 +42,13 @@ function generateCard(title, description) {
     return card;
 }
 
-const card1 = generateCard('Title', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non officia adipisci praesentium quae numquam nihil veritatis, temporibus in dicta porro nostrum ipsum voluptatum perspiciatis recusandae, omnis ad consequuntur, molestiae magnam.');
 
-cardHolder.appendChild(card1);
+
+function generateCards(){
+    for(let i = 0; i < titles.length; i++){
+        const card1 = makeCard(titles[i], descriptions[i]);
+        cardHolder.appendChild(card1);
+    }
+}
+
+generateCards();
