@@ -132,6 +132,14 @@ input::placeholder {
   margin-bottom: 40px;
 }
 
+#container #cardHolder .hidden{
+  display: none;
+}
+
+#container #cardHolder .visible{
+  display: flex;
+}
+
 .card {
   max-width: 400px;
   display: flex;
