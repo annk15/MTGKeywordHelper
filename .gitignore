@@ -1,1 +1,5 @@
-backend/database/docker/data
+../.DS_Store
+.DS_Store
+backend/database/.DS_Store
+backend/database/data/
+backend/database/venv/
