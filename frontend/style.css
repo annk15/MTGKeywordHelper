@@ -17,14 +17,13 @@ body {
 }
 
 body,
-input::placeholder,
-h1 {
-  font-family: "Poppins", sans-serif;
+h1,
+input::placeholder {
+  font-family: Poppins, sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
-/*flexes landingHeader with landingKeywords*/
 .container {
   color: var(--colorPrimaryText);
   text-align: center;
@@ -32,18 +31,23 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  gap: 75px;
+  height: 100vh;
+  gap: 50px;
 }
 
-/*flexes h1 and p inside the header*/
 #landingHeader {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
   row-gap: 10px;
+  margin-top: 120px;
 }
 
 #landingHeader #landingHeaderTitle {
@@ -58,13 +62,11 @@ h1 {
 #landingHeader p,
 .cardDescription {
   color: var(--colorSecondaryText);
-  font-style: italic;
   font-weight: 400;
-  font-size: 0.8rem;
+  font-size: .8rem;
   max-width: 80%;
 }
 
-/*flexes searchBar with cardHolder*/
 .landingKeywords {
   display: flex;
   flex-direction: column;
@@ -80,12 +82,12 @@ h1 {
 
 .searchBar button {
   width: 15vw;
-  border-radius: 0rem 1rem 1rem 0rem;
+  border-radius: 0 1rem 1rem 0;
   background-color: var(--colorPrimary);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.3s;
+  transition: .3s;
   float: left;
   box-shadow: var(--cardShadow);
 }
@@ -97,15 +99,16 @@ h1 {
 .searchBar input {
   width: 70vw;
   padding: 10px;
-  border-radius: 1rem 0rem 0rem 1rem;
+  border-radius: 1rem 0 0 1rem;
   background-color: var(--colorHover);
   float: left;
   color: var(--colorPrimaryText);
   box-shadow: var(--cardShadow);
+  font-size: 14px;
 }
 
 .searchBar input:focus {
-  outline: 2px solid var(--colorSecondaryText);
+  outline: 1px solid var(--colorSecondaryText);
 }
 
 #searchIcon {
@@ -116,23 +119,19 @@ h1 {
 .searchBar button,
 .searchBar input {
   border: none;
-  height: 7vh;
+  height: 54px;
 }
 
-/*flexes card classes*/
 #cardHolder {
   width: 90vw;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  column-gap: 4px;
-  row-gap: 26px;
+  gap: 12px;
   margin-bottom: 40px;
 }
 
-/*flexes cardTitle with cardDescription*/
 .card {
-  min-width: 300px;
   max-width: 400px;
   display: flex;
   flex-direction: column;
@@ -141,8 +140,8 @@ h1 {
   background-color: var(--colorCard);
   padding-top: 20px;
   padding-bottom: 20px;
-  border-radius: 0.2rem;
-  gap: 20px;
+  border-radius: .2rem;
+  gap: 10px;
   box-shadow: var(--cardShadow);
 }
 
@@ -155,15 +154,120 @@ h1 {
   font-size: 16px;
 }
 
-.lineBreak,
 .cardLineBreak {
   border: 1px inset var(--colorBackground);
 }
 
-.lineBreak {
-  width: 75vw;
-}
-
 .cardLineBreak {
   width: 200px;
+}
+
+@media (min-width:769px) and (max-width:1024px) {
+  #landingHeader {
+    margin-top: 275px;
+  }
+
+  #landingHeader #landingHeaderTitle {
+    width: 95vw;
+    font-size: 36px;
+  }
+
+  #cardHolder {
+    width: 97vw;
+  }
+
+  .card {
+    max-width: 250px;
+  }
+
+  .card .cardTitle {
+    font-size: 18px;
+  }
+
+  .card .cardDescription {
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .searchBar input {
+    width: 480px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .searchBar button {
+    width: 50px;
+  }
+}
+
+@media (min-width:1025px) {
+  .container {
+    height: 100vh;
+    color: var(--colorPrimaryText);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 50px;
+  }
+
+  #landingHeader {
+    margin-top: 275px;
+  }
+
+  #landingHeader #landingHeaderTitle {
+    width: 95vw;
+    font-size: 36px;
+  }
+
+  #landingHeader p,
+  .cardDescription {
+    color: var(--colorSecondaryText);
+    font-weight: 400;
+    font-size: .8rem;
+    max-width: 80%;
+  }
+
+  .landingKeywords {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    margin-bottom: 4px;
+  }
+
+  #cardHolder {
+    width: 80vw;
+    column-gap: 5px;
+    row-gap: 10px;
+  }
+
+  .card {
+    max-width: 250px;
+  }
+
+  .card .cardTitle {
+    font-size: 18px;
+  }
+
+  .card .cardDescription {
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .searchBar input {
+    width: 480px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .searchBar button {
+    width: 50px;
+  }
+
+  .searchBar button,
+  .searchBar input {
+    height: 54px;
+  }
 }
