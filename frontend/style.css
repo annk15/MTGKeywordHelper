@@ -24,7 +24,7 @@ input::placeholder {
   font-style: normal;
 }
 
-.container {
+#container {
   color: var(--colorPrimaryText);
   text-align: center;
   display: flex;
@@ -55,7 +55,7 @@ input::placeholder {
   font-size: 28px;
 }
 
-.landingHeaderTitleMTG {
+#landingHeaderTitleMTG {
   color: var(--colorPrimary);
 }
 
@@ -67,7 +67,7 @@ input::placeholder {
   max-width: 80%;
 }
 
-.landingKeywords {
+#landingKeywords {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,12 +75,12 @@ input::placeholder {
   margin-bottom: 4px;
 }
 
-.searchBar {
+#searchBar {
   display: flex;
   justify-content: center;
 }
 
-.searchBar button {
+#searchBar button {
   width: 15vw;
   border-radius: 0 1rem 1rem 0;
   background-color: var(--colorPrimary);
@@ -92,11 +92,11 @@ input::placeholder {
   box-shadow: var(--cardShadow);
 }
 
-.searchBar button:hover {
+#searchBar button:hover {
   background-color: var(--colorSecondaryText);
 }
 
-.searchBar input {
+#searchBar input {
   width: 70vw;
   padding: 10px;
   border-radius: 1rem 0 0 1rem;
@@ -107,7 +107,7 @@ input::placeholder {
   font-size: 14px;
 }
 
-.searchBar input:focus {
+#searchBar input:focus {
   outline: 1px solid var(--colorSecondaryText);
 }
 
@@ -116,8 +116,8 @@ input::placeholder {
   height: 1.6rem;
 }
 
-.searchBar button,
-.searchBar input {
+#searchBar button,
+#searchBar input {
   border: none;
   height: 54px;
 }
@@ -190,19 +190,19 @@ input::placeholder {
     font-size: 14px;
   }
 
-  .searchBar input {
+  #searchBar input {
     width: 480px;
     padding: 10px;
     font-size: 13px;
   }
 
-  .searchBar button {
+  #searchBar button {
     width: 50px;
   }
 }
 
 @media (min-width:1025px) {
-  .container {
+  #container {
     height: 100vh;
     color: var(--colorPrimaryText);
     text-align: center;
@@ -230,7 +230,7 @@ input::placeholder {
     max-width: 80%;
   }
 
-  .landingKeywords {
+  #landingKeywords {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -257,18 +257,18 @@ input::placeholder {
     font-size: 14px;
   }
 
-  .searchBar input {
+  #searchBar input {
     width: 480px;
     padding: 10px;
     font-size: 13px;
   }
 
-  .searchBar button {
+  #searchBar button {
     width: 50px;
   }
 
-  .searchBar button,
-  .searchBar input {
+  #searchBar button,
+  #searchBar input {
     height: 54px;
   }
 }
