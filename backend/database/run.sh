@@ -21,8 +21,8 @@ echo "MySQL is reachable, will proceed with populating the database"
 # Check if the venv directory exists
 if [ ! -d "venv" ]; then
   echo "venv directory does not exist. Creating virtual environment..."
-  # Create the virtual environment using python3.12
-  python3.12 -m venv venv
+
+  python3 -m venv venv
   if [ $? -eq 0 ]; then
     echo "Virtual environment created successfully."
   else
