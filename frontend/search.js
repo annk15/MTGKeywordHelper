@@ -11,12 +11,7 @@ function debounce(func, delay) {
     };
 }
 
-/* Levenshtein distance for fuzzy search. 
-Levenshtein distance measures how many 'substitutions', 'insertions' and 'deletions' needed to change one string into another. 
-Changing the string 'Teacher' into 'Reach' would require 1 substitution for the 'T' into 'R', and 2 deletions for the 'er', 
-making the Levenshtein distance 3.
-An exact match would have the distance value 0. 
-If the distance value is <= the max distance value then the result is shown.*/
+//Logic allowing slight discrepancies between user input and card title name, making searches less strict for finding cards
 function levenshtein(a, b) {
     const an = a.length; // Searchbar input
     const bn = b.length; //Keyword card titles
