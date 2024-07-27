@@ -16,19 +16,20 @@
 </head>
 
 <body>
-    <div class="container">
+    <div id="container">
         <div id="landingHeader">
             <h1 id="landingHeaderTitle">
-                <span class="landingHeaderTitleMTG">MTG</span> Keyword Helper
+                <span id="landingHeaderTitleMTG">MTG</span> Keyword Helper
             </h1>
             <p id="landingHeaderDescription">
                 Find the description for any keyword from Magic: The Gathering!
             </p>
         </div>
-        <div class="landingKeywords">
-            <div class="searchBar">
-                <input type="text" name="keywordSearch" placeholder="E.g. Flying, Deathtouch, etc..." />
-                <button type="submit" class="searchButton">
+        <div id="landingKeywords">
+            <div id="searchBar">
+                <input type="text" id="keywordSearch" name="keywordSearch"
+                    placeholder="E.g. Flying, Deathtouch, etc..." />
+                <button type="submit" id="searchButton">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" id="searchIcon" viewBox="0 -960 960 960"
                         width="24px" fill="#e4e6eb">
                         <path
@@ -36,22 +37,13 @@
                     </svg>
                 </button>
             </div>
-            <div class="lineBreak"></div>
-            <div class="cardHolder">
-                <div class="card">
-                    <div class="cardTitle">Keyword Name</div>
-                    <div class="cardLineBreak"></div>
-                    <div class="cardDescription">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores
-                        impedit minima libero mollitia voluptatibus? Commodi tempora ipsum
-                        recusandae perspiciatis laborum ab impedit velit minus dolore,
-                        culpa fuga, eius harum nemo?
-                    </div>
-                </div>
+            <div id="cardHolder">
+                <!--cards from 'generateCard.js goes here'-->
             </div>
         </div>
     </div>
-    <script></script>
+    <script src="generateCard.js"></script>
+    <script src="search.js"></script>
 </body>
 
 </html>
