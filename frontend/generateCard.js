@@ -1,7 +1,5 @@
 const cardHolder = document.getElementById('cardHolder');
 const cards = cardHolder.getElementsByClassName('card');
-const searchBar = document.getElementById('keywordSearch');
-let keywords 
 
 const titles = [
     'Deathtouch',
@@ -67,20 +65,3 @@ for (let i = 0; i < 10; i++) {
 
 const cardTest = makeCard(cardValue.title, cardValue.description);
 cardHolder.appendChild(cardTest); */
-
-searchBar.addEventListener('keyup', e => {
-    let input = e.target.value.toLowerCase();
-    console.log(input);
-    let keywordTitles = document.querySelectorAll('div.cardTitle');
-    
-    keywordTitles.forEach(title => {
-        if(title.textContent.toLowerCase().includes(input)){
-            title.parentNode.classList.add('visible');
-            title.parentNode.classList.remove('hidden');
-        }
-        else{
-            title.parentNode.classList.add('hidden');
-            title.parentNode.classList.remove('visible');
-        }
-    })
-})
