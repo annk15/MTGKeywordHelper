@@ -1,61 +1,46 @@
 const cardHolder = document.getElementById('cardHolder');
 const cards = cardHolder.getElementsByClassName('card');
 
-/* // Array of card titles
-const titles = [
-    'Deathtouch',
-    'Haste',
-    'Flying',
-    'Reach',
-    'Hexproof',
-    'Double Strike',
-    'First Strike',
-    'Lifelink'
-];
+let cardsData = {}
 
-// Array of descriptions corresponding to the titles
-const descriptions = [
-    'Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)',
-    'Haste (This creature can attack and {T} as soon as it comes under your control.)',
-    "Flying (This creature can't be blocked except by creatures with flying and/or reach.)",
-    "Reach (This creature can block creatures with flying.)",
-    "Hexproof (This permanent can't be the target of spells or abilities your opponents control.)",
-    "Double strike (This creature deals both first-strike and regular combat damage.)",
-    "First strike (This creature deals combat damage before creatures without first strike.)",
-    "Lifelink (Damage dealt by this creature also causes you to gain that much life.)"
-]; */
+let keywordData = [];
+let descriptionData = [];
 
-async function getCards(){
+async function getCards() {
     const url = 'http://127.0.0.1:5000/keyword-abilities';
-    
-    try{
+
+    try {
         const response = await fetch(url);
-        
         const json = await response.json();
-        console.log(json);
+
+        cardsData = json; //full api data
+
+        cardsData.forEach(card => {
+            keywordData.push(card.keyword);
+            descriptionData.push(card.description);
+        });
     }
-    catch(error){
+    catch (error) {
         console.error(error.message);
     }
 }
 
-// Function to create a card element with a title and description
-function makeCard(title, description) {
+function makeCards(title, description) {
     // Create a new div element for the card
     const card = document.createElement('div');
     card.classList.add('card');
     card.classList.add('visible');
 
-    // Create divs for title, separator, description
-    const cardTitle = document.createElement('div');
-    cardTitle.classList.add('cardTitle');
+
+    const cardTitle = document.createElement('div'); // Create div for title
+    cardTitle.classList.add('cardTitle'); ////Give it the class 'cardTitle'
     cardTitle.textContent = title;
 
-    const cardLineBreak = document.createElement('div');
-    cardLineBreak.classList.add('cardLineBreak');
+    const cardLineBreak = document.createElement('div'); // Create div for the linebreak
+    cardLineBreak.classList.add('cardLineBreak'); //Give it the class 'cardLineBreak'
 
-    const cardDescription = document.createElement('div');
-    cardDescription.classList.add('cardDescription');
+    const cardDescription = document.createElement('div'); // Create div for description
+    cardDescription.classList.add('cardDescription'); //Give it the class 'cardDescription'
     cardDescription.textContent = description;
 
     // Append title, line break, and description to the card
@@ -66,16 +51,15 @@ function makeCard(title, description) {
     return card;
 }
 
-/* // Function to generate and append cards based on titles and descriptions arrays
-function generateCards() {
-    for (let i = 0; i < titles.length; i++) {
-        const cards = makeCard(titles[i], descriptions[i]);
-        cardHolder.appendChild(cards);
+async function pushCards() {
+    for (let i = 0; i < keywordData.length; i++) {
+        const card = makeCards(keywordData[i], descriptionData[i]);
+        cardHolder.appendChild(card);
     }
 }
-for (let i = 0; i < 10; i++) {
-    generateCards();
 
-} */
 
-    getCards();
+(async function initialize() {
+    await getCards();
+    pushCards();
+})();
