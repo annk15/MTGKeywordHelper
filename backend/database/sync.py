@@ -28,7 +28,7 @@ def initDB():
       cursor.execute(
               """
               CREATE TABLE IF NOT EXISTS
-              keyword_abilities(Keyword varchar(50), Description varchar(500));
+              keyword_abilities(keyword varchar(50), description varchar(500), url varchar(500));
               """)
         
       cnx.commit()
@@ -39,7 +39,7 @@ def initDB():
           if cnx:
               cnx.close()
 
-def updateDB(keyword, description):
+def updateDB(keyword, description, url):
   
   try:
       cnx = mysql.connector.connect(**db_config)
@@ -50,12 +50,12 @@ def updateDB(keyword, description):
               USE mtg;
               """)
       
-      cursor.execute(      
+      cursor.execute(
               """
-              INSERT INTO keyword_abilities (keyword, description)
-              VALUES (%s, %s)
+              INSERT INTO keyword_abilities (keyword, description, url)
+              VALUES (%s, %s, %s)
               ON DUPLICATE KEY UPDATE description = %s;
-              """, (keyword, description, description))
+              """, (keyword, description, url, description))
         
       cnx.commit()
       
@@ -74,7 +74,9 @@ def parseText(text, pattern):
       return None
 
 def getKeyDescription(keyword):
-  
+    
+  keyword = keyword.capitalize().replace(" ", "_")
+    
   url = (
       "https://mtg.fandom.com/api.php?format=json&action=query&prop=revisions&rvprop=content&explaintext&redirects=1&titles="
       + keyword
@@ -89,7 +91,7 @@ def getKeyDescription(keyword):
           else:
               print("WARNING : Failed to parse infobox for keyword " + keyword)
           if infoboxText is not None:
-              return parseText(infoboxText, r"\| reminder\s*=\s*([^|]*)\|")
+              return parseText(infoboxText, r"\| reminder\s*=\s*([^|]*)\|"), url
           else:
               print("WARNING : Failed to parse remainder text for keyword " + keyword)
       except KeyError:
@@ -101,7 +103,7 @@ def getKeyDescription(keyword):
           )
   else:
       print(f"ERROR : description website responded with: {response.status_code}")
-  return None
+  return None, url
 
 def fetchKeywords():
   
@@ -125,10 +127,10 @@ def main():
   
   keywords = fetchKeywords()
   for keyword in keywords:
-      description = getKeyDescription(keyword)
+      description, url = getKeyDescription(keyword)
       if description is not None:
-          print(keyword + " | " + description)
-          updateDB(keyword, description)
+          print(keyword + " | " + description + " | " + url)
+          updateDB(keyword, description, url)
   
   print("--------")
   print("COMPLETE")
