@@ -6,7 +6,6 @@ function Check-MySQL {
 
 docker-compose up -d
 
-# Wait for MySQL to be reachable
 Write-Host "Waiting for MySQL to be reachable..."
 while (-not (Check-MySQL)) {
     Write-Host -NoNewline "."

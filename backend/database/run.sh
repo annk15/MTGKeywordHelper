@@ -6,10 +6,6 @@ function check_mysql {
 
 docker compose up -d
 
-# Start Docker Compose
-docker-compose up -d
-
-# Wait for MySQL to be reachable
 echo "Waiting for MySQL to be reachable..."
 while ! check_mysql; do
     echo -n "."
