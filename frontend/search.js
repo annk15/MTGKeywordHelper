@@ -11,15 +11,16 @@ function debounce(func, delay) {
     };
 }
 
-//levenshtein distance function, calculates number of edits needed to make
+//Levenshtein distance function, calculates number of edits needed to make
 // one string into another
 function levenshtein(a, b) {
     const an = a.length;
     const bn = b.length;
-    if (an === 0) return bn;
-    if (bn === 0) return an;
+    if (an === 0) return bn;  // If 'a' is empty, return length of 'b'
+    if (bn === 0) return an; // If 'b' is empty, return length of 'a'
     const matrix = [];
 
+        // Initialize matrix with base cases
     for (let i = 0; i <= bn; i++) {
         matrix[i] = [i];
     }
@@ -27,12 +28,13 @@ function levenshtein(a, b) {
     for (let j = 0; j <= an; j++) {
         matrix[0][j] = j;
     }
-
+// Populate the matrix with Levenshtein distances
     for (let i = 1; i <= bn; i++) {
         for (let j = 1; j <= an; j++) {
             if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                matrix[i][j] = matrix[i - 1][j - 1];
+                matrix[i][j] = matrix[i - 1][j - 1]; // No change needed if characters match
             } else {
+                // Calculate the minimum edit distance considering substitution, insertion, and deletion
                 matrix[i][j] = Math.min(
                     matrix[i - 1][j - 1] + 1, // substitution
                     matrix[i][j - 1] + 1, // insertion
@@ -42,9 +44,10 @@ function levenshtein(a, b) {
         }
     }
 
-    return matrix[bn][an];
+    return matrix[bn][an]; // Return the computed distance
 }
 
+//Function for searching for keyword titles among cards
 function performSearch(e) {
     let input = e.target.value.toLowerCase().trim();
     let keywordTitles = document.querySelectorAll('div.cardTitle');
@@ -60,6 +63,7 @@ function performSearch(e) {
         // Check Levenshtein distance if not a substring match
         let isFuzzyMatch = !isSubstringMatch && levenshtein(input, titleText) <= maxDistance;
 
+        // Show or hide the card based on matching criteria
         if (isSubstringMatch || isFuzzyMatch) {
             parentCard.classList.add('visible');
             parentCard.classList.remove('hidden');
@@ -70,4 +74,5 @@ function performSearch(e) {
     });
 }
 
+//Runs performSearch after a debounce delay, in favor of performance
 searchBar.addEventListener('keyup', debounce(performSearch, 300));
