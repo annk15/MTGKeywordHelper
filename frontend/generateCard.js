@@ -1,65 +1,74 @@
 const cardHolder = document.getElementById('cardHolder');
 const cards = cardHolder.getElementsByClassName('card');
-
 let cardsData = {}
-
 let keywordData = [];
 let descriptionData = [];
 
-async function getCards() {
+// Fetch card data from API
+async function fetchCard() {
     const url = 'http://127.0.0.1:5000/keyword-abilities';
 
     try {
         const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const json = await response.json();
+        cardsData = json; //Full api data
 
-        cardsData = json; //full api data
-
+        // Taking the keyword titles and descriptions
         cardsData.forEach(card => {
             keywordData.push(card.keyword);
             descriptionData.push(card.description);
         });
     }
     catch (error) {
-        console.error(error.message);
+        console.error('Error fetching cards data:', error.message);
     }
 }
 
-function makeCards(title, description) {
-    // Create a new div element for the card
+// Creates a card element with a title, description and a line break between them
+function createCard(title, description) {
+    // Create a new div element for the card and adds 'card' and 'visible' class
     const card = document.createElement('div');
-    card.classList.add('card');
-    card.classList.add('visible');
-
+    card.classList.add('card', 'visible');
 
     const cardTitle = document.createElement('div'); // Create div for title
-    cardTitle.classList.add('cardTitle'); ////Give it the class 'cardTitle'
+    cardTitle.classList.add('cardTitle'); // Give it the class 'cardTitle'
     cardTitle.textContent = title;
 
     const cardLineBreak = document.createElement('div'); // Create div for the linebreak
-    cardLineBreak.classList.add('cardLineBreak'); //Give it the class 'cardLineBreak'
+    cardLineBreak.classList.add('cardLineBreak'); // Give it the class 'cardLineBreak'
 
     const cardDescription = document.createElement('div'); // Create div for description
-    cardDescription.classList.add('cardDescription'); //Give it the class 'cardDescription'
+    cardDescription.classList.add('cardDescription'); // Give it the class 'cardDescription'
     cardDescription.textContent = description;
 
     // Append title, line break, and description to the card
     card.appendChild(cardTitle);
     card.appendChild(cardLineBreak);
     card.appendChild(cardDescription);
-    // Return the constructed card element
-    return card;
-}
 
-async function pushCards() {
-    for (let i = 0; i < keywordData.length; i++) {
-        const card = makeCards(keywordData[i], descriptionData[i]);
-        cardHolder.appendChild(card);
+    return card; // Return the constructed card element
+}
+// Renders all the cards on the page
+async function renderCards() {
+    try {
+        for (let i = 0; i < keywordData.length; i++) {
+            try {
+                const card = createCard(keywordData[i], descriptionData[i]);
+                cardHolder.appendChild(card);
+            } catch (innerError) {
+                console.log('Error rendering card:', innerError.message);
+            }
+        }
+    } catch (outerError) {
+        console.error('Error rendering cards:', outerError.message);
     }
 }
 
-
+// Initialize rendering cards
 (async function initialize() {
-    await getCards();
-    pushCards();
+    await fetchCard();
+    renderCards();
 })();
