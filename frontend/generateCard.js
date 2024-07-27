@@ -1,7 +1,7 @@
 const cardHolder = document.getElementById('cardHolder');
 const cards = cardHolder.getElementsByClassName('card');
 
-// Array of card titles
+/* // Array of card titles
 const titles = [
     'Deathtouch',
     'Haste',
@@ -23,7 +23,21 @@ const descriptions = [
     "Double strike (This creature deals both first-strike and regular combat damage.)",
     "First strike (This creature deals combat damage before creatures without first strike.)",
     "Lifelink (Damage dealt by this creature also causes you to gain that much life.)"
-];
+]; */
+
+async function getCards(){
+    const url = 'http://127.0.0.1:5000/keyword-abilities';
+    
+    try{
+        const response = await fetch(url);
+        
+        const json = await response.json();
+        console.log(json);
+    }
+    catch(error){
+        console.error(error.message);
+    }
+}
 
 // Function to create a card element with a title and description
 function makeCard(title, description) {
@@ -52,7 +66,7 @@ function makeCard(title, description) {
     return card;
 }
 
-// Function to generate and append cards based on titles and descriptions arrays
+/* // Function to generate and append cards based on titles and descriptions arrays
 function generateCards() {
     for (let i = 0; i < titles.length; i++) {
         const cards = makeCard(titles[i], descriptions[i]);
@@ -62,4 +76,6 @@ function generateCards() {
 for (let i = 0; i < 10; i++) {
     generateCards();
 
-}
+} */
+
+    getCards();
