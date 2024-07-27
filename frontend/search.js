@@ -11,16 +11,23 @@ function debounce(func, delay) {
     };
 }
 
-//Levenshtein distance function, calculates number of edits needed to make
-// one string into another
+/* Levenshtein distance for fuzzy search. 
+Levenshtein distance measures how many 'substitutions', 'insertions' and 'deletions' needed to change one string into another. 
+Changing the string 'Teacher' into 'Reach' would require 1 substitution for the 'T' into 'R', and 2 deletions for the 'er', 
+making the Levenshtein distance 3.
+An exact match would have the distance value 0. 
+If the distance value is <= the max distance value then the result is shown.*/
 function levenshtein(a, b) {
-    const an = a.length;
-    const bn = b.length;
+    const an = a.length; // Searchbar input
+    const bn = b.length; //Keyword card titles
+
+    //This is the early exit condition, immedietly returning the distance incase one value is empty to prevent further processing
     if (an === 0) return bn;  // If 'a' is empty, return length of 'b'
     if (bn === 0) return an; // If 'b' is empty, return length of 'a'
+
     const matrix = [];
 
-        // Initialize matrix with base cases
+    // Initialize matrix with base cases
     for (let i = 0; i <= bn; i++) {
         matrix[i] = [i];
     }
@@ -28,7 +35,7 @@ function levenshtein(a, b) {
     for (let j = 0; j <= an; j++) {
         matrix[0][j] = j;
     }
-// Populate the matrix with Levenshtein distances
+    // Populate the matrix with Levenshtein distances
     for (let i = 1; i <= bn; i++) {
         for (let j = 1; j <= an; j++) {
             if (b.charAt(i - 1) === a.charAt(j - 1)) {
@@ -75,4 +82,4 @@ function performSearch(e) {
 }
 
 //Runs performSearch after a debounce delay, in favor of performance
-searchBar.addEventListener('keyup', debounce(performSearch, 300));
+searchBar.addEventListener('keyup', debounce(performSearch, 500));

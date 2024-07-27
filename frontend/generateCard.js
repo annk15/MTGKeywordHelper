@@ -63,12 +63,3 @@ for (let i = 0; i < 10; i++) {
     generateCards();
 
 }
-
-//temp obj version of card
-/* const cardValue = {
-    title:"Deathtouch",
-    description:"Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)"
-}
-
-const cardTest = makeCard(cardValue.title, cardValue.description);
-cardHolder.appendChild(cardTest); */

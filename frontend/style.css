@@ -1,4 +1,4 @@
-:root{
+:root {
   --cardShadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
   --colorPrimary: #f56b1d;
   --colorSecondary: #f56b1d;
@@ -14,8 +14,8 @@
   margin: 0;
   box-sizing: border-box;
 }
-/*When no media query is active, the style is made for mobile 
-screenwidth*/
+
+/*When no media query is active, the style is made for mobile screenwidth*/
 body {
   background-color: var(--colorBackground);
 }
@@ -27,6 +27,7 @@ input::placeholder {
   font-weight: 400;
   font-style: normal;
 }
+
 /*Flex landingHeader and landingKeywords*/
 #container {
   color: var(--colorPrimaryText);
@@ -38,8 +39,8 @@ input::placeholder {
   height: 100vh;
   gap: 50px;
 }
-/*Styling for landingHeader and all elements flexed by it,
-the name h1 and the paragraph below */
+
+/*Styling for landingHeader and all elements flexed by it, the name h1 and the paragraph below */
 #landingHeader {
   /*Disable text selection for h1*/
   -moz-user-select: -moz-none;
@@ -65,8 +66,8 @@ the name h1 and the paragraph below */
 #landingHeaderTitleMTG {
   color: var(--colorPrimary);
 }
-/*Styling for both the paragraph below the header, and 
-the card descriptions*/
+
+/*Styling for both the paragraph below the header, and the card descriptions*/
 #landingHeader p,
 .cardDescription {
   color: var(--colorSecondaryText);
@@ -74,8 +75,8 @@ the card descriptions*/
   font-size: .8rem;
   max-width: 80%;
 }
-/*Styling for landingKeywords and all elements flexed by it,
-the search bar, carHolder and all card elements*/
+
+/*Styling for landingKeywords and all elements flexed by it, the search bar, carHolder and all card elements*/
 #landingKeywords {
   display: flex;
   flex-direction: column;
@@ -141,11 +142,11 @@ the search bar, carHolder and all card elements*/
   margin-bottom: 40px;
 }
 
-#container #cardHolder .hidden{
+#container #cardHolder .hidden {
   display: none;
 }
 
-#container #cardHolder .visible{
+#container #cardHolder .visible {
   display: flex;
 }
 
@@ -179,8 +180,8 @@ the search bar, carHolder and all card elements*/
 .cardLineBreak {
   width: 200px;
 }
-/*Media queries used for checking browser width, for responsive
-design*/
+
+/*Media queries used for checking browser width, for responsive design*/
 /*First media query is mainly for tablets/small screens*/
 @media (min-width:769px) and (max-width:1024px) {
   #landingHeader {
@@ -219,6 +220,7 @@ design*/
     width: 50px;
   }
 }
+
 /*Second media query is mainly for desktop and larger screens*/
 @media (min-width:1025px) {
   #container {
