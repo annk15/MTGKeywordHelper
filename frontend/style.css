@@ -136,7 +136,7 @@ input::placeholder {
 #cardHolder {
   width: 90vw;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 40px;
@@ -151,11 +151,11 @@ input::placeholder {
 }
 
 .card {
+  width: 90vw;
   max-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: var(--colorCard);
   padding-top: 20px;
   padding-bottom: 20px;
@@ -166,6 +166,7 @@ input::placeholder {
 
 .card .cardTitle {
   font-size: 20px;
+  padding: 0px 15px 0px 15px;
 }
 
 .card .cardDescription {
@@ -259,14 +260,8 @@ input::placeholder {
     margin-bottom: 4px;
   }
 
-  #cardHolder {
-    width: 80vw;
-    column-gap: 5px;
-    row-gap: 10px;
-  }
-
   .card {
-    max-width: 250px;
+    width: 250px;
   }
 
   .card .cardTitle {
