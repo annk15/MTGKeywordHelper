@@ -1,6 +1,5 @@
+<!--Replace the placeholder title below with an appropriate title.-->
 ## Title of the Pull Request
-<!--Replace the placeholder text above with an appropriate title.-->
-
 
 ### Description
 <!--Provide a brief description of the changes in this pull request:-->
