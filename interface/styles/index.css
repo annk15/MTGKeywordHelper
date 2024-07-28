@@ -143,11 +143,12 @@ input::placeholder {
 }
 
 #container #cardHolder .hidden {
-  display: none;
+  opacity: 0;
+  position: absolute;
 }
 
 #container #cardHolder .visible {
-  display: flex;
+  opacity: 1;
 }
 
 .card {
@@ -163,13 +164,13 @@ input::placeholder {
   box-shadow: var(--cardShadow);
 }
 
-.cardImage{
+.cardImage {
   width: 100%;
   overflow: hidden;
   max-height: 50%;
   background-size: 100%;
   background-position: center;
-  
+
 }
 
 .card .cardTitle {

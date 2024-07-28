@@ -35,15 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Creates a card element with a title, description and a line break between them
     async function createCard(keyword, description) {
-        const imageUrl = await fetchImageUrl(keyword);
+        const imageUrl = await fetchImageUrl(keyword); //Fetches the imageurl related to the keyword property
 
         // Create a new div element for the card and adds 'card' and 'visible' class
         const card = document.createElement('div');
         card.classList.add('card', 'visible');
 
+        // Creates a new element for cardImage, assign class and imageurl
         const cardImage = document.createElement('img');
         cardImage.classList.add('cardImage');
-        cardImage.src = imageUrl; // Set the source of the image
+        cardImage.src = imageUrl;
 
         const cardTitle = document.createElement('div'); // Create div for title
         cardTitle.classList.add('cardTitle'); // Give it the class 'cardTitle'
@@ -69,12 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function renderCards() {
         const cardData = await fetchCardData();
 
-        if (!cardData) {
-            console.error('No card data found');
-            return;
-        }
-
-        // Makes a card for each object in the fetched data and append to cardHolder
+        // Creates a card for each object in the fetched data and append to cardHolder
         cardData.forEach(async ({ keyword, description }) => {
             try {
                 const card = await createCard(keyword, description);
@@ -95,5 +91,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initialize();
-
 });
