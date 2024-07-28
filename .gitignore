@@ -1,6 +1,6 @@
 ../.DS_Store
 .DS_Store
-backend/database/.DS_Store
-backend/database/data/
-backend/database/venv/
-backend/server/venv/
+database/.DS_Store
+database/data/
+database/venv/
+server/venv/
