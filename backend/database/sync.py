@@ -1,7 +1,6 @@
 import requests
 import mysql.connector
 import re
-import time
 
 db_config = {
   "host": "127.0.0.1",
