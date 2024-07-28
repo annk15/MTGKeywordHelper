@@ -119,7 +119,7 @@ def getKeyDescription(keyword):
           data = response.json()
           text = list(data["query"]["pages"].values())[0]["revisions"][0]["*"]
           if text is not None:
-              infoboxText = parseText(text, r"{{Infobox keyword(.*?)}}")
+              infoboxText = parseText(text, r'\{\{Infobox\s\w+\n([\s\S]*?)\}\}')
           else:
               print("WARNING : Failed to parse infobox for keyword " + keyword)
           if infoboxText is not None:
@@ -166,9 +166,8 @@ def fetchKeyImage(keyword):
 
     return data
 
-def fetchKeywords():
+def fetchKeywords(url):
 
-  url = "https://api.scryfall.com/catalog/keyword-abilities"
   response = requests.get(url)
   data = None
   if response.status_code == 200:
@@ -187,8 +186,9 @@ def main():
 
   initDB()
 
-  keywords = fetchKeywords()
-  for keyword in keywords:
+  keywordAbilities = fetchKeywords("https://api.scryfall.com/catalog/keyword-abilities")
+  keywordActions = fetchKeywords("https://api.scryfall.com/catalog/keyword-actions")
+  for keyword in keywordAbilities + keywordActions:
       description, url = getKeyDescription(keyword)
       if description is not None:
           print(keyword + " | " + description + " | " + url)
