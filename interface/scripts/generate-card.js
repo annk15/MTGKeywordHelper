@@ -1,10 +1,13 @@
+import config from './config.js';
+
 // Listen for DOM content being fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     const cardHolder = document.getElementById('cardHolder');
 
     // Fetch card data from API
     async function fetchCardData() {
-        const url = 'http://127.0.0.1:5000/keyword-abilities';
+        const url = `${config.apiUrl}${config.endpoint.keyword}`;
+        console.log(url);
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -16,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching cards data:', error.message);
         }
     }
-    // Fetches the Image URL
-    async function fetchImageUrl(keyword) {
-        const url = `http://127.0.0.1:5000/keyword-image/${keyword}`;  // Use the keyword in the URL
 
+    // Fetches the Image
+    async function fetchImage(keyword) {
+        const url = `${config.apiUrl}${config.endpoint.keywordImage(keyword)}`;  // Use the keyword in the URL
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -35,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Creates a card element with a title, description and a line break between them
     async function createCard(keyword, description) {
-        const imageUrl = await fetchImageUrl(keyword); //Fetches the imageurl related to the keyword property
+        const imageUrl = await fetchImage(keyword); //Fetches the imageurl related to the keyword property
 
         // Create a new div element for the card and adds 'card' and 'visible' class
         const card = document.createElement('div');
@@ -45,6 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardImage = document.createElement('img');
         cardImage.classList.add('cardImage');
         cardImage.src = imageUrl;
+
+        //Release the object URL after it's loaded
+        cardImage.addEventListener('load', () => {
+            URL.revokeObjectURL(imageUrl);
+        });
 
         const cardTitle = document.createElement('div'); // Create div for title
         cardTitle.classList.add('cardTitle'); // Give it the class 'cardTitle'
@@ -66,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return card; // Return the constructed card element
     }
 
-    // Uses fetchCardData() and fetchImageUrl to get the data from API and createCard() to make a card for each object, then renders them on the page.
+    // Uses fetchCardData() and fetchImage to get the data from API and createCard() to make a card for each object, then renders them on the page.
     async function renderCards() {
         const cardData = await fetchCardData();
 
