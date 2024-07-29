@@ -53,8 +53,8 @@ function levenshtein(a, b) {
 function performSearch(e) {
     let input = e.target.value.toLowerCase().trim();
     let keywordTitles = document.querySelectorAll('div.cardTitle');
+    
     const maxDistance = 1; // Maximum allowed Levenshtein distance for fuzzy matching
-
     keywordTitles.forEach(title => {
         let grandParentCard = title.parentNode.parentNode;
         let titleText = title.textContent.toLowerCase().trim();
@@ -77,4 +77,4 @@ function performSearch(e) {
 }
 
 //Runs performSearch after a debounce delay, in favor of performance
-searchBar.addEventListener('keyup', debounce(performSearch, 500));
+searchBar.addEventListener('keyup', debounce(performSearch, 400));

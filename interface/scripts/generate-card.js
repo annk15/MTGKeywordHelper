@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Create a new div element for the card and adds 'card' and 'visible' class
         const card = document.createElement('div');
-        card.classList.add('card', 'visible');
+        card.classList.add('card');
 
         // Creates a image and adds classes
         const cardImage = document.createElement('div');
@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
         cardTextContainer.classList.add('cardTextContainer'); // Give it the class 'cardTextContainer'
         
         //potential filter. Needs to fix the issue of text behind filter. Need to see if images are being fetched twice per image.
-        /* cardTextContainer.style.backgroundImage = `url(${imageUrl})`;
-        cardTextContainer.style.filter = 'blur(10px) brightness(0.5)';
-        cardTextContainer.style.transform = "rotate(180deg";
-        cardTextContainer.style.backgroundPosition = "center"; */
+        //cardTextContainer.style.backgroundImage = `url(${imageUrl})`;
+        //cardTextContainer.style.filter = 'blur(7px) brightness(0.4)';
+        //cardTextContainer.style.transform = "rotate(180deg";
+        //cardTextContainer.style.backgroundPosition = "bottom";
         
         //Release the object URL after it's loaded
         cardImage.addEventListener('load', () => {

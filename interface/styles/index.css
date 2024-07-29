@@ -136,31 +136,31 @@ input::placeholder {
 #cardHolder {
   width: 90vw;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 40px;
 }
 
 #container #cardHolder .hidden {
-  animation: fade-down 0.8s ease-in forwards;
+  animation: fade-down 0.4s ease-out forwards;
 }
 
 #container #cardHolder .visible {
-  animation: fade-up 0.5s ease-in forwards;
+  animation: fade-up 0.4s ease-in forwards;
 }
 
 .card {
   width: 90vw;
   max-width: 340px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--colorCard);
   border-radius: 15px;
-  gap: 10px;
-  height: 400px;
   overflow: hidden;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
 }
 
 .cardImage {
@@ -187,38 +187,38 @@ input::placeholder {
 }
 
 @keyframes fade-up {
-  100%{
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
   0%{
     opacity: 0;
-    transform: translateY(30px) scale(0);
+    transform: translateY(280px) translateX(0px) scale(0.5);
+  }
+
+  100%{
+    position:relative;
+    opacity: 1;
+    transform: translateY(0) translateX(0px) scale(1);
   }
 }
 
 @keyframes fade-down {
   0%{
     opacity: 1;
-    transform: translateY(0) scale(1);
-    position: relative;
+    transform: translateY(0) translateX(0px) scale(1);
   }
 
-  50%{
-    opacity: 0;
-    transform: translateY(120px) scale(0);
-    position: relative;
-  }
-  
-  95%{
-    position: absolute;
-    opacity: 0;
-  }
 
+  99%{
+    position: relative;
+    transform: translateY(200px) translateX(0px) scale(0.7);
+    opacity: 0;
+  }
   100%{
-    position: absolute;
     opacity: 0;
+    position: absolute;
+  }
+ 
+  100%{
+    opacity: 0;
+    position: absolute;
   }
 }
 
