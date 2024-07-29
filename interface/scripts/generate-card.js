@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Creates a card element with a title, description and a line break between them
+    // Creates a card element with a title, image and description
     async function createCard(keyword, description) {
         const imageUrl = await fetchImageUrl(keyword); //Fetches the imageurl related to the keyword property
 
@@ -41,28 +41,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('div');
         card.classList.add('card', 'visible');
 
-        // Creates a new element for cardImage, assign class and imageurl
-        const cardImage = document.createElement('img');
+        // Creates a image and adds classes
+        const cardImage = document.createElement('div');
         cardImage.classList.add('cardImage');
-        cardImage.src = imageUrl;
+        cardImage.style.backgroundImage = `url(${imageUrl})`;
 
+        const cardTextContainer = document.createElement('div'); // Create div for text container
+        cardTextContainer.classList.add('cardTextContainer'); // Give it the class 'cardTextContainer'
+        
+        //potential filter. Needs to fix the issue of text behind filter. Need to see if images are being fetched twice per image.
+        /* cardTextContainer.style.backgroundImage = `url(${imageUrl})`;
+        cardTextContainer.style.filter = 'blur(10px) brightness(0.5)';
+        cardTextContainer.style.transform = "rotate(180deg";
+        cardTextContainer.style.backgroundPosition = "center"; */
+        
         const cardTitle = document.createElement('div'); // Create div for title
         cardTitle.classList.add('cardTitle'); // Give it the class 'cardTitle'
         cardTitle.textContent = keyword;
-
-        const cardLineBreak = document.createElement('div'); // Create div for the linebreak
-        cardLineBreak.classList.add('cardLineBreak'); // Give it the class 'cardLineBreak'
 
         const cardDescription = document.createElement('div'); // Create div for description
         cardDescription.classList.add('cardDescription'); // Give it the class 'cardDescription'
         cardDescription.textContent = description;
 
-        // Append title, line break, and description to the card
+        // Create card structure by appending elements
         card.appendChild(cardImage);
-        card.appendChild(cardTitle);
-        card.appendChild(cardLineBreak);
-        card.appendChild(cardDescription);
-
+        card.appendChild(cardTextContainer)
+        cardTextContainer.appendChild(cardTitle);
+        cardTextContainer.appendChild(cardDescription);
+        
         return card; // Return the constructed card element
     }
 

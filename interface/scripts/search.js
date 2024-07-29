@@ -56,7 +56,7 @@ function performSearch(e) {
     const maxDistance = 1; // Maximum allowed Levenshtein distance for fuzzy matching
 
     keywordTitles.forEach(title => {
-        let parentCard = title.parentNode;
+        let grandParentCard = title.parentNode.parentNode;
         let titleText = title.textContent.toLowerCase().trim();
 
         // Check if the input is a substring of the titleText
@@ -67,11 +67,11 @@ function performSearch(e) {
 
         // Show or hide the card based on matching criteria
         if (isSubstringMatch || isFuzzyMatch) {
-            parentCard.classList.add('visible');
-            parentCard.classList.remove('hidden');
+            grandParentCard.classList.add('visible');
+            grandParentCard.classList.remove('hidden');
         } else {
-            parentCard.classList.add('hidden');
-            parentCard.classList.remove('visible');
+            grandParentCard.classList.add('hidden');
+            grandParentCard.classList.remove('visible');
         }
     });
 }

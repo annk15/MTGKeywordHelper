@@ -4,6 +4,7 @@
   --colorSecondary: #f56b1d;
   --colorBackground: #18191a;
   --colorCard: #242526;
+  --colorCardTwo: #1d1d1d;
   --colorHover: #3a3b3c;
   --colorPrimaryText: #e4e6eb;
   --colorSecondaryText: #b0b3b8;
@@ -68,8 +69,7 @@ input::placeholder {
 }
 
 /*Styling for both the paragraph below the header, and the card descriptions*/
-#landingHeader p,
-.cardDescription {
+#landingHeader p{
   color: var(--colorSecondaryText);
   font-weight: 400;
   font-size: .8rem;
@@ -143,52 +143,83 @@ input::placeholder {
 }
 
 #container #cardHolder .hidden {
-  opacity: 0;
-  position: absolute;
+  animation: fade-down 0.8s ease-in forwards;
 }
 
 #container #cardHolder .visible {
-  opacity: 1;
+  animation: fade-up 0.5s ease-in forwards;
 }
 
 .card {
   width: 90vw;
-  max-width: 400px;
+  max-width: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--colorCard);
-  padding-bottom: 20px;
-  border-radius: .2rem;
+  border-radius: 15px;
   gap: 10px;
-  box-shadow: var(--cardShadow);
+  height: 400px;
+  overflow: hidden;
 }
 
 .cardImage {
   width: 100%;
-  overflow: hidden;
-  max-height: 50%;
-  background-size: 100%;
-  background-position: center;
-
+  height: 200px; /* Adjust height as needed */
+  background-size: cover;
+  border-radius: 15px 15px 0px 0px;
+  flex:1.5;
 }
 
-.card .cardTitle {
+.cardTextContainer{
+  flex: 2;
+  border-radius: 0 0 15px 15px;
+}
+
+.cardTextContainer .cardTitle {
   font-size: 20px;
   padding: 0px 15px 0px 15px;
 }
 
-.card .cardDescription {
+.cardTextContainer .cardDescription {
   text-align: left;
   font-size: 16px;
 }
 
-.cardLineBreak {
-  border: 1px inset var(--colorBackground);
+@keyframes fade-up {
+  100%{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  0%{
+    opacity: 0;
+    transform: translateY(30px) scale(0);
+  }
 }
 
-.cardLineBreak {
-  width: 200px;
+@keyframes fade-down {
+  0%{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    position: relative;
+  }
+
+  50%{
+    opacity: 0;
+    transform: translateY(120px) scale(0);
+    position: relative;
+  }
+  
+  95%{
+    position: absolute;
+    opacity: 0;
+  }
+
+  100%{
+    position: absolute;
+    opacity: 0;
+  }
 }
 
 /*Media queries used for checking browser width, for responsive design*/
@@ -205,17 +236,19 @@ input::placeholder {
 
   #cardHolder {
     width: 97vw;
+    gap: 40px;
   }
+  
 
   .card {
-    max-width: 250px;
+    width: 250px;
   }
 
-  .card .cardTitle {
+  .cardTextContainer .cardTitle {
     font-size: 18px;
   }
 
-  .card .cardDescription {
+  .cardTextContainer .cardDescription {
     text-align: left;
     font-size: 14px;
   }
@@ -253,8 +286,7 @@ input::placeholder {
     font-size: 36px;
   }
 
-  #landingHeader p,
-  .cardDescription {
+  #landingHeader p{
     color: var(--colorSecondaryText);
     font-weight: 400;
     font-size: .8rem;
@@ -273,11 +305,11 @@ input::placeholder {
     width: 250px;
   }
 
-  .card .cardTitle {
+  .cardTextContainer .cardTitle {
     font-size: 18px;
   }
 
-  .card .cardDescription {
+  .cardTextContainer .cardDescription {
     text-align: left;
     font-size: 14px;
   }
@@ -295,5 +327,9 @@ input::placeholder {
   #searchBar button,
   #searchBar input {
     height: 54px;
+  }
+
+  #cardHolder{
+    gap: 40px;
   }
 }
