@@ -58,6 +58,7 @@ function performSearch(e) {
     keywordTitles.forEach(title => {
         let grandParentCard = title.parentNode.parentNode;
         let titleText = title.textContent.toLowerCase().trim();
+        var firstSearch;
 
         // Check if the input is a substring of the titleText
         let isSubstringMatch = titleText.includes(input);
@@ -67,8 +68,10 @@ function performSearch(e) {
 
         // Show or hide the card based on matching criteria
         if (isSubstringMatch || isFuzzyMatch) {
-            grandParentCard.classList.add('visible');
-            grandParentCard.classList.remove('hidden');
+            if(grandParentCard.classList.contains('hidden')) {
+                grandParentCard.classList.add('visible');
+                grandParentCard.classList.remove('hidden');
+            }
         } else {
             grandParentCard.classList.add('hidden');
             grandParentCard.classList.remove('visible');

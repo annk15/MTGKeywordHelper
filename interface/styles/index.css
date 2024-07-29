@@ -16,29 +16,28 @@
   box-sizing: border-box;
 }
 
+html{
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
 /*When no media query is active, the style is made for mobile screenwidth*/
 body {
   background-color: var(--colorBackground);
-}
-
-body,
-h1,
-input::placeholder {
   font-family: Poppins, sans-serif;
   font-weight: 400;
-  font-style: normal;
 }
 
 /*Flex landingHeader and landingKeywords*/
 #container {
+  height: 100%;
   color: var(--colorPrimaryText);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  height: 100vh;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 200%;
 }
 
 /*Styling for landingHeader and all elements flexed by it, the name h1 and the paragraph below */
@@ -50,18 +49,13 @@ input::placeholder {
   -o-user-select: none;
   user-select: none;
 
-  height: 30vh;
+  height: 30%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
-  row-gap: 10px;
-  margin-top: 120px;
-}
-
-#landingHeader #landingHeaderTitle {
-  max-width: 85%;
-  font-size: 28px;
+  
 }
 
 #landingHeaderTitleMTG {
@@ -73,45 +67,34 @@ input::placeholder {
   color: var(--colorSecondaryText);
   font-weight: 400;
   font-size: .8rem;
-  max-width: 80%;
 }
 
 /*Styling for landingKeywords and all elements flexed by it, the search bar, carHolder and all card elements*/
 #landingKeywords {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  margin-bottom: 4px;
+  
 }
 
 #searchBar {
-  display: flex;
-  justify-content: center;
+  
+}
+
+::placeholder{
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 #searchBar button {
-  width: 15vw;
-  border-radius: 0 1rem 1rem 0;
-  background-color: var(--colorPrimary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: .3s;
-  float: left;
-  box-shadow: var(--cardShadow);
-}
-
-#searchBar button:hover {
-  background-color: var(--colorSecondaryText);
+  display: none;
 }
 
 #searchBar input {
-  width: 70vw;
-  padding: 10px;
-  border-radius: 1rem 0 0 1rem;
+  border: none;
+  height: 72px;
+  border-radius: 12px;
   background-color: var(--colorHover);
-  float: left;
   color: var(--colorPrimaryText);
   box-shadow: var(--cardShadow);
   font-size: 14px;
@@ -121,25 +104,12 @@ input::placeholder {
   outline: 1px solid var(--colorSecondaryText);
 }
 
-#searchIcon {
-  width: 1.6rem;
-  height: 1.6rem;
-}
-
-#searchBar button,
-#searchBar input {
-  border: none;
-  height: 54px;
-}
-
 /*Flexes card classes*/
 #cardHolder {
-  width: 90vw;
-  display: flex;
-  justify-content: left;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 40px;
+  display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80%, max-content));
+    grid-gap: 36px;
+    justify-content: center;
 }
 
 #container #cardHolder .hidden {
@@ -151,9 +121,7 @@ input::placeholder {
 }
 
 .card {
-  width: 90vw;
-  max-width: 340px;
-  height: 400px;
+  aspect-ratio: 5 / 8;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -165,7 +133,7 @@ input::placeholder {
 
 .cardImage {
   width: 100%;
-  height: 200px; /* Adjust height as needed */
+  height: 40%;
   background-size: cover;
   border-radius: 15px 15px 0px 0px;
   flex:1.5;
@@ -178,7 +146,6 @@ input::placeholder {
 
 .cardTextContainer .cardTitle {
   font-size: 20px;
-  padding: 0px 15px 0px 15px;
 }
 
 .cardTextContainer .cardDescription {
@@ -222,114 +189,44 @@ input::placeholder {
   }
 }
 
-/*Media queries used for checking browser width, for responsive design*/
-/*First media query is mainly for tablets/small screens*/
-@media (min-width:769px) and (max-width:1024px) {
-  #landingHeader {
-    margin-top: 275px;
-  }
-
-  #landingHeader #landingHeaderTitle {
-    width: 95vw;
-    font-size: 36px;
-  }
-
-  #cardHolder {
-    width: 97vw;
-    gap: 40px;
-  }
-  
-
-  .card {
-    width: 250px;
-  }
-
-  .cardTextContainer .cardTitle {
-    font-size: 18px;
-  }
-
-  .cardTextContainer .cardDescription {
-    text-align: left;
-    font-size: 14px;
-  }
-
-  #searchBar input {
-    width: 480px;
-    padding: 10px;
-    font-size: 13px;
-  }
-
-  #searchBar button {
-    width: 50px;
-  }
-}
-
 /*Second media query is mainly for desktop and larger screens*/
 @media (min-width:1025px) {
-  #container {
-    height: 100vh;
-    color: var(--colorPrimaryText);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    gap: 50px;
-  }
-
   #landingHeader {
-    margin-top: 275px;
+    
   }
 
   #landingHeader #landingHeaderTitle {
-    width: 95vw;
-    font-size: 36px;
+    
   }
 
-  #landingHeader p{
-    color: var(--colorSecondaryText);
-    font-weight: 400;
-    font-size: .8rem;
-    max-width: 80%;
+  /*Change cardHolder into gridlayout*/
+  #cardHolder{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, max-content));
+    grid-gap: 36px;
+    justify-content: center;
   }
 
-  #landingKeywords {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
-    margin-bottom: 4px;
-  }
-
-  .card {
-    width: 250px;
-  }
-
-  .cardTextContainer .cardTitle {
-    font-size: 18px;
-  }
-
-  .cardTextContainer .cardDescription {
-    text-align: left;
-    font-size: 14px;
-  }
-
-  #searchBar input {
-    width: 480px;
-    padding: 10px;
-    font-size: 13px;
-  }
+  
 
   #searchBar button {
     width: 50px;
+    border-radius: 0 1rem 1rem 0;
+    background-color: var(--colorPrimary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+    float: left;
+    box-shadow: var(--cardShadow);
   }
 
-  #searchBar button,
-  #searchBar input {
-    height: 54px;
+  #searchBar button{
+    height: 72px;
   }
 
-  #cardHolder{
-    gap: 40px;
+  #searchIcon {
+    width: 1.6rem;
+    height: 1.6rem;
   }
 }
