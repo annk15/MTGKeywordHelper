@@ -52,13 +52,12 @@ function levenshtein(a, b) {
 //Function for searching for keyword titles among cards
 function performSearch(e) {
     let input = e.target.value.toLowerCase().trim();
-    let keywordTitles = document.querySelectorAll('div.cardTitle');
+    let keywordTitles = document.querySelectorAll('h2.cardTitle');
     
     const maxDistance = 1; // Maximum allowed Levenshtein distance for fuzzy matching
     keywordTitles.forEach(title => {
         let grandParentCard = title.parentNode.parentNode;
         let titleText = title.textContent.toLowerCase().trim();
-        var firstSearch;
 
         // Check if the input is a substring of the titleText
         let isSubstringMatch = titleText.includes(input);
@@ -80,4 +79,4 @@ function performSearch(e) {
 }
 
 //Runs performSearch after a debounce delay, in favor of performance
-searchBar.addEventListener('keyup', debounce(performSearch, 400));
+searchBar.addEventListener('keyup', debounce(performSearch, 200));

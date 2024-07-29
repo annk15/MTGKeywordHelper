@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         //potential filter. Needs to fix the issue of text behind filter. Need to see if images are being fetched twice per image.
         //cardTextContainer.style.backgroundImage = `url(${imageUrl})`;
-        //cardTextContainer.style.filter = 'blur(7px) brightness(0.4)';
+        //cardTextContainer.style.filter = 'blur(10px) brightness(0.2)';
         //cardTextContainer.style.transform = "rotate(180deg";
         //cardTextContainer.style.backgroundPosition = "bottom";
         
@@ -63,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
             URL.revokeObjectURL(imageUrl);
         });
 
-        const cardTitle = document.createElement('div'); // Create div for title
+        const cardTitle = document.createElement('h2'); // Create div for title
         cardTitle.classList.add('cardTitle'); // Give it the class 'cardTitle'
         cardTitle.textContent = keyword;
 
-        const cardDescription = document.createElement('div'); // Create div for description
+        const cardDescription = document.createElement('p'); // Create div for description
         cardDescription.classList.add('cardDescription'); // Give it the class 'cardDescription'
         cardDescription.textContent = description;
 

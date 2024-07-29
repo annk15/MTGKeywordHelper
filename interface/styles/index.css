@@ -1,13 +1,14 @@
 :root {
   --cardShadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
   --colorPrimary: #f56b1d;
-  --colorSecondary: #f56b1d;
+  --colorSecondary: #f78c4e;
   --colorBackground: #18191a;
   --colorCard: #242526;
   --colorCardTwo: #1d1d1d;
   --colorHover: #3a3b3c;
   --colorPrimaryText: #e4e6eb;
   --colorSecondaryText: #b0b3b8;
+
 }
 
 * {
@@ -24,20 +25,23 @@ html{
 /*When no media query is active, the style is made for mobile screenwidth*/
 body {
   background-color: var(--colorBackground);
+  background-attachment: fixed;
   font-family: Poppins, sans-serif;
   font-weight: 400;
+  display: flex;
+  justify-content: center;
 }
 
 /*Flex landingHeader and landingKeywords*/
 #container {
-  height: 100%;
+  max-width: 90%;
   color: var(--colorPrimaryText);
   text-align: center;
+  align-content: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 200%;
+  gap: 1rem;
+  margin-top: 80px;
 }
 
 /*Styling for landingHeader and all elements flexed by it, the name h1 and the paragraph below */
@@ -49,67 +53,74 @@ body {
   -o-user-select: none;
   user-select: none;
 
-  height: 30%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: start;
   justify-content: center;
-  
+  gap: 0.8rem;
+  padding: 10%;
+}
+
+#landingHeaderTitle {
+  font-weight: 500;
+  font-size: 2.3rem;
 }
 
 #landingHeaderTitleMTG {
   color: var(--colorPrimary);
+  font-weight: 400;
 }
 
 /*Styling for both the paragraph below the header, and the card descriptions*/
 #landingHeader p{
   color: var(--colorSecondaryText);
-  font-weight: 400;
-  font-size: .8rem;
+  font-weight: 300;
+  font-size: 0.9rem;
 }
 
 /*Styling for landingKeywords and all elements flexed by it, the search bar, carHolder and all card elements*/
 #landingKeywords {
   display: flex;
   flex-direction: column;
-  
-}
-
-#searchBar {
-  
+  gap: 2rem;
 }
 
 ::placeholder{
-  font-family: Poppins, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-#searchBar button {
-  display: none;
+  color: var(--colorSecondaryText);
+  opacity: 0.6;
 }
 
 #searchBar input {
+  width: 100%;
   border: none;
   height: 72px;
   border-radius: 12px;
   background-color: var(--colorHover);
   color: var(--colorPrimaryText);
-  box-shadow: var(--cardShadow);
-  font-size: 14px;
+}
+
+#searchBar input,
+::placeholder {
+  font-size: 0.85rem;
+  padding: 1rem;
+  font-family: Poppins, sans-serif;
+  font-weight: 300;
 }
 
 #searchBar input:focus {
   outline: 1px solid var(--colorSecondaryText);
 }
 
+#searchBar button {
+  display: none;
+}
+
 /*Flexes card classes*/
 #cardHolder {
   display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80%, max-content));
-    grid-gap: 36px;
-    justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(80%, max-content));
+  grid-gap: 4rem;
+  justify-content: center;
 }
 
 #container #cardHolder .hidden {
@@ -125,10 +136,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--colorCard);
+  background-color: var(--colorCardTwo);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
 }
 
 .cardImage {
@@ -142,15 +152,26 @@ body {
 .cardTextContainer{
   flex: 2;
   border-radius: 0 0 15px 15px;
+  max-width: 80%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:left;
+  gap: 5%;
 }
 
 .cardTextContainer .cardTitle {
-  font-size: 20px;
+  font-size: 1.75rem;
+  color: var(--colorPrimaryText);
+  font-weight: 500;
 }
 
 .cardTextContainer .cardDescription {
-  text-align: left;
-  font-size: 16px;
+  font-size: 0.9rem;
+  color: var(--colorSecondaryText);
+  font-weight: 400;
+  padding-bottom: 30%;
 }
 
 @keyframes fade-up {
@@ -213,12 +234,13 @@ body {
     width: 50px;
     border-radius: 0 1rem 1rem 0;
     background-color: var(--colorPrimary);
-    display: flex;
+    display: hide;
     justify-content: center;
     align-items: center;
     transition: .3s;
     float: left;
     box-shadow: var(--cardShadow);
+    
   }
 
   #searchBar button{
