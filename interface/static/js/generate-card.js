@@ -1,7 +1,5 @@
 import config from './config.js';
 
-import config from './config.js';
-
 // Listen for DOM content being fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     const cardHolder = document.getElementById('cardHolder');

@@ -85,4 +85,4 @@ def keywordImages(keyword):
         return make_response('Image not found', 404)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run('0.0.0.0', port=5080, debug=False)
