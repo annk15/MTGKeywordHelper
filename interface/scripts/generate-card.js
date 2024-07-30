@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchCardData() {
         const url = `${config.apiUrl}${config.endpoint.keyword}`;
         console.log(url);
-        const url = `${config.apiUrl}${config.endpoint.keyword}`;
-        console.log(url);
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -107,14 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Creates a card for each object in the fetched data and append to cardHolder
         cardData.forEach(async ({ keyword, description }) => {
-        // Creates a card for each object in the fetched data and append to cardHolder
-        cardData.forEach(async ({ keyword, description }) => {
             try {
-                const card = await createCard(keyword, description);
                 const card = await createCard(keyword, description);
                 cardHolder.appendChild(card);
             } catch (error) {
-                console.error('Error rendering cards:', error.message);
                 console.error('Error rendering cards:', error.message);
             }
         });
