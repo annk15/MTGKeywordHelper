@@ -52,11 +52,11 @@ function levenshtein(a, b) {
 //Function for searching for keyword titles among cards
 function performSearch(e) {
     let input = e.target.value.toLowerCase().trim();
-    let keywordTitles = document.querySelectorAll('div.cardTitle');
+    let keywordTitles = document.querySelectorAll('h2.cardTitle');
+    
     const maxDistance = 1; // Maximum allowed Levenshtein distance for fuzzy matching
-
     keywordTitles.forEach(title => {
-        let parentCard = title.parentNode;
+        let grandParentCard = title.parentNode.parentNode;
         let titleText = title.textContent.toLowerCase().trim();
 
         // Check if the input is a substring of the titleText
@@ -67,14 +67,16 @@ function performSearch(e) {
 
         // Show or hide the card based on matching criteria
         if (isSubstringMatch || isFuzzyMatch) {
-            parentCard.classList.add('visible');
-            parentCard.classList.remove('hidden');
+            if(grandParentCard.classList.contains('hidden')) {
+                grandParentCard.classList.add('visible');
+                grandParentCard.classList.remove('hidden');
+            }
         } else {
-            parentCard.classList.add('hidden');
-            parentCard.classList.remove('visible');
+            grandParentCard.classList.add('hidden');
+            grandParentCard.classList.remove('visible');
         }
     });
 }
 
 //Runs performSearch after a debounce delay, in favor of performance
-searchBar.addEventListener('keyup', debounce(performSearch, 500));
+searchBar.addEventListener('keyup', debounce(performSearch, 200));

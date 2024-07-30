@@ -4,3 +4,8 @@ database/.DS_Store
 database/data/
 database/venv/
 server/venv/
+.env
+__pycache__/
+*.pyc
+node_modules/
+interface/venv/
