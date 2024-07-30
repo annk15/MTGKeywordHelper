@@ -1,11 +1,15 @@
 import config from './config.js';
 
+import config from './config.js';
+
 // Listen for DOM content being fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     const cardHolder = document.getElementById('cardHolder');
 
     // Fetch card data from API
     async function fetchCardData() {
+        const url = `${config.apiUrl}${config.endpoint.keyword}`;
+        console.log(url);
         const url = `${config.apiUrl}${config.endpoint.keyword}`;
         console.log(url);
         try {
@@ -17,6 +21,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         catch (error) {
             console.error('Error fetching cards data:', error.message);
+        }
+    }
+
+    // Fetches the Image
+    async function fetchImage(keyword) {
+        const url = `${config.apiUrl}${config.endpoint.keywordImage(keyword)}`;  // Use the keyword in the URL
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Error fetching image for keyword '${keyword}': ${response.status}`);
+            }
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+            return imageUrl;
+        } catch (error) {
+            console.error('Error fetching image URL:', error.message);
         }
     }
 
@@ -81,19 +101,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Uses fetchCardData() and fetchImage to get the data from API and createCard() to make a card for each object, then renders them on the page.
+    // Uses fetchCardData() and fetchImage to get the data from API and createCard() to make a card for each object, then renders them on the page.
     async function renderCards() {
         const cardData = await fetchCardData();
 
         // Creates a card for each object in the fetched data and append to cardHolder
         cardData.forEach(async ({ keyword, description }) => {
+        // Creates a card for each object in the fetched data and append to cardHolder
+        cardData.forEach(async ({ keyword, description }) => {
             try {
+                const card = await createCard(keyword, description);
                 const card = await createCard(keyword, description);
                 cardHolder.appendChild(card);
             } catch (error) {
                 console.error('Error rendering cards:', error.message);
+                console.error('Error rendering cards:', error.message);
             }
         });
     }
+
 
     // Initialize card rendering
     async function initialize() {

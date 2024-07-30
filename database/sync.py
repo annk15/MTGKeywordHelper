@@ -1,6 +1,8 @@
 import requests
 import mysql.connector
 import re
+from enum import Enum
+import time
 
 db_config = {
   "host": "127.0.0.1",
@@ -9,8 +11,27 @@ db_config = {
   "password": "password"
 }
 
+debug = True
+
+class LoggType(Enum):
+    ERROR = 1
+    WARNING = 2
+    INFO = 3
+
+def logg(text, type = None):
+
+    if type is None:
+        print()
+        print(text)
+        return
+
+    if debug or type is LoggType.ERROR:
+        print(type.name + " : " +  text)
+
 def initDB():
+
   try:
+
       cnx = mysql.connector.connect(**db_config)
       cursor = cnx.cursor()
 
@@ -40,6 +61,7 @@ def initDB():
       cnx.commit()
 
   finally:
+
       if cursor:
           cursor.close()
           if cnx:
@@ -48,6 +70,7 @@ def initDB():
 def updateDescriptionDB(keyword, description, url):
 
   try:
+
       cnx = mysql.connector.connect(**db_config)
       cursor = cnx.cursor()
 
@@ -66,6 +89,7 @@ def updateDescriptionDB(keyword, description, url):
       cnx.commit()
 
   finally:
+
       if cursor:
           cursor.close()
           if cnx:
@@ -74,6 +98,7 @@ def updateDescriptionDB(keyword, description, url):
 def updateImageDB(keyword, image):
 
   try:
+
       cnx = mysql.connector.connect(**db_config)
       cursor = cnx.cursor()
 
@@ -92,6 +117,7 @@ def updateImageDB(keyword, image):
       cnx.commit()
 
   finally:
+
       if cursor:
           cursor.close()
           if cnx:
@@ -100,6 +126,7 @@ def updateImageDB(keyword, image):
 def parseText(text, pattern):
 
   match = re.search(pattern, text, re.DOTALL)
+
   if match:
       return match.group(1).strip()
   else:
@@ -113,28 +140,32 @@ def getKeyDescription(keyword):
       "https://mtg.fandom.com/api.php?format=json&action=query&prop=revisions&rvprop=content&explaintext&redirects=1&titles="
       + keyword
   )
+
   response = requests.get(url)
+
   if response.status_code == 200:
       try:
+
           data = response.json()
           text = list(data["query"]["pages"].values())[0]["revisions"][0]["*"]
+
           if text is not None:
-              infoboxText = parseText(text, r"{{Infobox keyword(.*?)}}")
+              infoboxText = parseText(text, r'\{\{Infobox\s\w+\n([\s\S]*?)\}\}')
           else:
-              print("WARNING : Failed to parse infobox for keyword " + keyword)
+              logg("Failed to parse infobox for keyword " + keyword, LoggType.WARNING)
+
           if infoboxText is not None:
               return parseText(infoboxText, r"\| reminder\s*=\s*([^|]*)\|"), url
           else:
-              print("WARNING : Failed to parse remainder text for keyword " + keyword)
+              logg("Failed to parse remainder text for keyword " + keyword, LoggType.WARNING)
+
       except KeyError:
           data = None
-          print(
-              "INFO : Wiki not found for keyword "
-              + keyword
-              + ", this keyword will be ignored"
-          )
+          logg("Wiki not found for keyword " + keyword + ", this keyword will be ignored", LoggType.WARNING)
+
   else:
-      print(f"ERROR : description website responded with: {response.status_code}")
+      logg(f"Description website responded with: {response.status_code}", LoggType.ERROR)
+
   return None, url
 
 def fetchKeyImage(keyword):
@@ -142,10 +173,11 @@ def fetchKeyImage(keyword):
     keyword = keyword.replace(" ","+oracle%3A").lower()
     url = "https://api.scryfall.com/cards/random?q=oracle%3A"+keyword
 
-    print("INFO | Will fetch image from url " + url)
+    logg("Will fetch image from url " + url, LoggType.INFO)
 
     response = requests.get(url)
     data = None
+
     if response.status_code == 200:
 
       data = response.json()
@@ -162,45 +194,70 @@ def fetchKeyImage(keyword):
       return response.content
 
     else:
-      print(f"ERROR : card image website responded with: {response.status_code}")
+      logg(f"Card image website responded with: {response.status_code}", LoggType.ERROR)
 
     return data
 
-def fetchKeywords():
+def fetchKeywords(url):
 
-  url = "https://api.scryfall.com/catalog/keyword-abilities"
   response = requests.get(url)
   data = None
+
   if response.status_code == 200:
       data = response.json()
       data = data["data"]
   else:
-      print(f"ERROR : keywords website responded with: {response.status_code}")
+      logg(f"Keywords website responded with: {response.status_code}", LoggType.ERROR)
 
   return data
 
 def main():
 
-  print("-------------------------------------------------------------")
-  print("Adding keywords and descriptions to the database, please wait")
-  print("-------------------------------------------------------------")
+  logg("Adding keywords and descriptions to the database, please wait")
 
   initDB()
 
-  keywords = fetchKeywords()
-  for keyword in keywords:
+  keywordAbilities = fetchKeywords("https://api.scryfall.com/catalog/keyword-abilities")
+  keywordActions = fetchKeywords("https://api.scryfall.com/catalog/keyword-actions")
+
+  keywordCount = 0
+  descriptionsCount = 0
+  imageCount = 0
+
+  fetchStartTime = time.time()
+
+  for keyword in keywordAbilities + keywordActions:
+
+      logg("Processing keyword : " + keyword)
+      keywordCount += 1
+
       description, url = getKeyDescription(keyword)
       if description is not None:
-          print(keyword + " | " + description + " | " + url)
+
+          logg("Successfully fetched description : " + description + "\n"
+               + "From URL " + url, LoggType.INFO)
+          descriptionsCount += 1
+
           updateDescriptionDB(keyword, description, url)
 
           image = fetchKeyImage(keyword)
+
           if image is not None:
+
+              logg("Successfully fetched image for keyword", LoggType.INFO)
+              imageCount += 1
+
               updateImageDB(keyword, image)
 
-  print("--------")
-  print("COMPLETE")
-  print("--------")
+          else:
+              logg("No image found for keyword", LoggType.WARNING)
+
+  logg("Successfully fetched : \n"
+       + str(keywordCount) + " keywords \n"
+       + str(descriptionsCount) + " descriptions \n"
+       + str(imageCount) + " images \n"
+       + "Total time : " + str(int(time.time() - fetchStartTime)) + " seconds")
 
 if __name__ == "__main__":
+
   main()
