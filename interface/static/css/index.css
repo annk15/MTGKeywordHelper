@@ -34,14 +34,14 @@ body {
 
 /*Flex landingHeader and landingKeywords*/
 #container {
-  max-width: 90%;
+  width: 90%;
   color: var(--colorPrimaryText);
   text-align: center;
   align-content: center;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 80px;
+  margin-top: 5%;
 }
 
 /*Styling for landingHeader and all elements flexed by it, the name h1 and the paragraph below */
@@ -58,7 +58,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 0.8rem;
-  padding: 10%;
+  padding: 5%;
 }
 
 #landingHeaderTitle {
@@ -92,6 +92,7 @@ body {
 
 #searchBar input {
   width: 100%;
+  max-width: 750px;
   border: none;
   height: 72px;
   border-radius: 12px;
@@ -118,9 +119,9 @@ body {
 /*Flexes card classes*/
 #cardHolder {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80%, max-content));
-  grid-gap: 4rem;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 2rem;
+  justify-items: center;
 }
 
 #container #cardHolder .hidden {
@@ -139,6 +140,8 @@ body {
   background-color: var(--colorCardTwo);
   border-radius: 15px;
   overflow: hidden;
+  max-width: 360px;
+  width: 100%;
 }
 
 .cardImage {
@@ -159,6 +162,7 @@ body {
   justify-content:center;
   align-items:left;
   gap: 5%;
+  overflow: hidden;
 }
 
 .cardTextContainer .cardTitle {
@@ -171,7 +175,7 @@ body {
   font-size: 0.9rem;
   color: var(--colorSecondaryText);
   font-weight: 400;
-  padding-bottom: 30%;
+  
 }
 
 @keyframes fade-up {
@@ -193,7 +197,6 @@ body {
     transform: translateY(0) translateX(0px) scale(1);
   }
 
-
   99%{
     position: relative;
     transform: translateY(200px) translateX(0px) scale(0.7);
@@ -212,24 +215,6 @@ body {
 
 /*Second media query is mainly for desktop and larger screens*/
 @media (min-width:1025px) {
-  #landingHeader {
-    
-  }
-
-  #landingHeader #landingHeaderTitle {
-    
-  }
-
-  /*Change cardHolder into gridlayout*/
-  #cardHolder{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, max-content));
-    grid-gap: 36px;
-    justify-content: center;
-  }
-
-  
-
   #searchBar button {
     width: 50px;
     border-radius: 0 1rem 1rem 0;
