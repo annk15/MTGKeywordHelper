@@ -79,4 +79,4 @@ function performSearch(e) {
 }
 
 //Runs performSearch after a debounce delay, in favor of performance
-searchBar.addEventListener('keyup', debounce(performSearch, 200));
+searchBar.addEventListener('keyup', debounce(performSearch, 300));
