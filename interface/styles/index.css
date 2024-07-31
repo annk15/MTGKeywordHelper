@@ -122,11 +122,17 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
   gap: 2rem;
-  row-gap: 4rem;
+  row-gap: 5rem;
   justify-content: center;
 }
 
 .card {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  
   aspect-ratio: 5 / 8;
   display: flex;
   flex-direction: column;
@@ -136,8 +142,14 @@ body {
   overflow: hidden;
   max-width: 300px;
   width: 100%;
-
+  transition: box-shadow 300ms ease, transform 300ms ease;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+
+/* .card:hover{
+  transform: scale(1.03);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+} */
 
 .cardImage {
   width: 100%;
