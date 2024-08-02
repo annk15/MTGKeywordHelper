@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/static/css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
@@ -26,24 +29,13 @@
             </p>
         </div>
         <div id="landingKeywords">
-            <div id="searchBar">
-                <input type="text" id="keywordSearch" name="keywordSearch"
-                    placeholder="E.g. Flying, Deathtouch, etc..." />
-                <button type="submit" id="searchButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" id="searchIcon" viewBox="0 -960 960 960"
-                        width="24px" fill="#e4e6eb">
-                        <path
-                            d="M782.87-98.52 526.91-354.48q-29.43 21.74-68.15 34.61Q420.04-307 375.48-307q-114.09 0-193.55-79.46-79.45-79.45-79.45-193.54 0-114.09 79.45-193.54Q261.39-853 375.48-853q114.09 0 193.54 79.46 79.46 79.45 79.46 193.54 0 45.13-12.87 83.28T601-429.7l256.52 257.09-74.65 74.09ZM375.48-413q69.91 0 118.45-48.54 48.55-48.55 48.55-118.46t-48.55-118.46Q445.39-747 375.48-747t-118.46 48.54Q208.48-649.91 208.48-580t48.54 118.46Q305.57-413 375.48-413Z" />
-                    </svg>
-                </button>
-            </div>
+            <input id="search" type="text" placeholder="Search...">
             <div id="cardHolder">
                 <!--cards from 'generate-card.js goes here'-->
             </div>
         </div>
     </div>
-    <script src="/static/js/generate-card.js" type="module"></script>
-    <script src="/static/js/search.js"></script>
+    <script src="/static/js/main.js" type="module"></script>
 </body>
 
 </html>
