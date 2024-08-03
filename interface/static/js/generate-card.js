@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create a new div element for the card and adds 'card' and 'visible' class
         const card = document.createElement('div');
         card.classList.add('card');
-
+        
         // Creates a image and adds classes
         const cardImage = document.createElement('div');
         cardImage.classList.add('cardImage');

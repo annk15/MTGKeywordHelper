@@ -3,6 +3,7 @@
 database/.DS_Store
 database/data/
 database/venv/
+interface/venv
 server/venv/
 .env
 __pycache__/
