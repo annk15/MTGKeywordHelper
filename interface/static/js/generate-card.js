@@ -8,6 +8,7 @@ export default class CardContainer {
         KeywordsNotifier.regKeywordInfoData(this);
     }
 
+    // Create a card
     createCard(keyword, description) {
         // Create a new div element for the card and adds 'card' and 'visible' class
         const card = document.createElement('div');
@@ -34,6 +35,7 @@ export default class CardContainer {
         cardTextContainer.appendChild(cardTitle);
         cardTextContainer.appendChild(cardDescription);
 
+        // Fetch card image
         DataHandler.fetchKeywordImageData(data => {
             cardImage.style.backgroundImage = `url(${data})`;
             cardImage.addEventListener('load', () => {
@@ -44,9 +46,8 @@ export default class CardContainer {
         return card; // Return the constructed card element
     }
 
+    // Add each card to the cardholder when new data is recived
     onKeywordInfoData(data) {
-        console.info(data)
-
         data.forEach(async ({ keyword, description }) => {
             try {
                 const card = this.createCard(keyword, description);

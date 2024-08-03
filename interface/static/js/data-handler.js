@@ -1,5 +1,4 @@
 import config from './config.js';
-import KeywordsNotifier from './data-notifier.js';
 
 export default class DataHandler {
 
