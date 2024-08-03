@@ -1,18 +1,24 @@
-let mybutton = document.getElementById('myBtn');
+export default class ScrollUpButton {
 
-window.onscroll = function(){
-    scrollFunction()
-};
+    constructor(buttonId) {
+        this.mybutton = document.getElementById(buttonId);
 
-function scrollFunction() {
-    if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
-        mybutton.style.opacity = '1';
-    } else {
-        mybutton.style.opacity = '0';
+        window.onscroll = this.scrollFunction.bind(this);
+
+       this.mybutton.onclick = this.topFunction.bind(this);
     }
-}
 
-function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    scrollFunction() {
+        if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+            this.mybutton.style.opacity = '1';
+        } else {
+            this.mybutton.style.opacity = '0';
+        }
+    }
+
+    topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
 }
