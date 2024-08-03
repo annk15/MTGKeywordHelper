@@ -5,7 +5,6 @@ export default class DataHandler {
     static async fetchKeywordInfoData(onDataCallback) {
 
         const url = `${config.apiUrl}${config.endpoint.keyword}`;
-        console.log(url);
         try {
             const response = await fetch(url);
             if (!response.ok) {

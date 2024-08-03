@@ -55,7 +55,6 @@ export default class Search {
       // Filter cards on Enter
       $("#search").on("keydown", function(event) {
         if (event.key === "Enter") {
-          console.info("ENTER!")
             var results = $.ui.autocomplete.filter(availableTags, $(this).val());
             showCardsBind(results)
         }
