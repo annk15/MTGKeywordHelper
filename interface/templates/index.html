@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/static/css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
@@ -23,19 +26,15 @@
             </h1>
         </div>
         <div id="landingKeywords">
-            <div id="searchBar">
-                <input type="text" id="keywordSearch" name="keywordSearch"
-                    placeholder="E.g. Flying, Deathtouch, etc..." />
-            </div>
+            <input id="search" type="text" placeholder="Search...">
             <div id="cardHolder">
                 <!--cards from 'generate-card.js goes here'-->
             </div>
         </div>
         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
     </div>
-    <script src="/static/js/generate-card.js" type="module"></script>
-    <script src="/static/js/search.js" type="module"></script>
-    <script src="/static/js/scrollUp.js"></script>
+    <script src="/static/js/main.js" type="module"></script>
+    <script src="/static/js/scrollUp.js" type="module"></script>
 </body>
 
 </html>
