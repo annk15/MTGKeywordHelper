@@ -36,22 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Fetches the Image
-    async function fetchImage(keyword) {
-        const url = `${config.apiUrl}${config.endpoint.keywordImage(keyword)}`;  // Use the keyword in the URL
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Error fetching image for keyword '${keyword}': ${response.status}`);
-            }
-            const blob = await response.blob();
-            const imageUrl = URL.createObjectURL(blob);
-            return imageUrl;
-        } catch (error) {
-            console.error('Error fetching image URL:', error.message);
-        }
-    }
-
     // Creates a card element with a title, image and description
     async function createCard(keyword, description) {
         const imageUrl = await fetchImage(keyword); //Fetches the imageurl related to the keyword property
@@ -59,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create a new div element for the card and adds 'card' and 'visible' class
         const card = document.createElement('div');
         card.classList.add('card');
-
+        
         // Creates a image and adds classes
         const cardImage = document.createElement('div');
         cardImage.classList.add('cardImage');
