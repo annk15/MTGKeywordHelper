@@ -1,0 +1,12 @@
+../.DS_Store
+.DS_Store
+database/.DS_Store
+database/data/
+database/venv/
+interface/venv
+server/venv/
+.env
+__pycache__/
+*.pyc
+node_modules/
+interface/venv/

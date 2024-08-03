@@ -1,0 +1,254 @@
+:root {
+  --cardShadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  --colorPrimary: #f56b1d;
+  --colorSecondary: #f78c4e;
+  --colorBackground: #18191a;
+  --colorCard: #242526;
+  --colorCardTwo: #1d1d1d;
+  --colorHover: #3a3b3c;
+  --colorAutoComplete: #2c2d2e;
+  --colorPrimaryText: #e4e6eb;
+  --colorSecondaryText: #b0b3b8;
+
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html{
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+body {
+  background-color: var(--colorBackground);
+  background-attachment: fixed;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+}
+
+/*Flex landingHeader and landingKeywords*/
+#container {
+  width: 90%;
+  color: var(--colorPrimaryText);
+  text-align: center;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+/*Styling for landingHeader and all elements flexed by it, the name h1 and the paragraph below */
+#landingHeader {
+  /*Disable text selection for h1*/
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 2%;
+}
+
+#landingHeaderTitle {
+  font-weight: 200;
+  font-size: 2.5rem;
+}
+
+#landingHeaderTitleMTG {
+  color: var(--colorPrimary);
+  font-weight: 500;
+}
+
+/*Styling for both the paragraph below the header, and the card descriptions*/
+#landingHeader p{
+  color: var(--colorSecondaryText);
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+/*Styling for landingKeywords and all elements flexed by it, the search bar, carHolder and all card elements*/
+#landingKeywords {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+::placeholder{
+  color: var(--colorSecondaryText);
+  opacity: 0.6;
+}
+
+#landingKeywords .ui-autocomplete-input {
+  width: 95%;
+  max-width: 700px;
+  border: none;
+  height: 60px;
+  border-radius: 12px;
+  background-color: var(--colorHover);
+  color: var(--colorPrimaryText);
+  align-self: center;
+}
+
+#landingKeywords .ui-autocomplete-input,
+::placeholder {
+  font-size: 0.8rem;
+  padding: 1rem;
+  font-family: Poppins, sans-serif;
+  font-weight: 300;
+}
+
+#landingKeywords .ui-autocomplete-input:focus {
+  outline: none !important;
+  border: 1px solid var(--colorSecondaryText);
+  
+}
+
+#landingKeywords .ui-autocomplete-input button {
+  display: none;
+}
+
+#container #landingKeywords .autoOpen {
+  border-radius: 12px 12px 0px 0px;
+  border-bottom: none;
+}
+
+#ui-id-1{
+  outline: none !important;
+  border-bottom: 1px solid var(--colorSecondaryText);
+  border-left: 1px solid var(--colorSecondaryText);
+  border-right: 1px solid var(--colorSecondaryText);
+  border-top: none;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.ui-menu-item{
+  padding: 5px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.ui-menu-item-wrapper.ui-state-active {
+  background-color: var(--colorHover);
+  color: var(--colorPrimaryText);
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+#ui-id-1,
+.ui-menu-item {
+  text-align: left;
+  background-color: var(--colorAutoComplete);
+  color: var(--colorSecondaryText);
+  font-size: 0.8rem;
+}
+
+/*Flexes card classes*/
+#cardHolder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+  gap: 2rem;
+  row-gap: 5rem;
+  justify-content: center;
+}
+
+.card {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  
+  aspect-ratio: 5 / 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--colorCardTwo);
+  border-radius: 15px;
+  overflow: hidden;
+  max-width: 290px;
+  width: 100%;
+  transition: box-shadow 300ms ease, transform 300ms ease;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+/* .card:hover{
+  transform: scale(1.03);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+} */
+
+.cardImage {
+  width: 100%;
+  height: 40%;
+  background-size: cover;
+  border-radius: 15px 15px 0px 0px;
+  flex:1.5;
+}
+
+.cardTextContainer{
+  flex: 2;
+  border-radius: 0 0 15px 15px;
+  max-width: 80%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:left;
+  gap: 5%;
+  overflow: hidden;
+}
+
+.cardTextContainer .cardTitle {
+  font-size: 1.75rem;
+  color: var(--colorPrimaryText);
+  font-weight: 500;
+}
+
+.cardTextContainer .cardDescription {
+  font-size: 0.9rem;
+  color: var(--colorSecondaryText);
+  font-weight: 400;
+}
+
+.hidden{
+  opacity: 0;
+  position:absolute;
+}
+
+.visible{
+  opacity: 1;
+  position: relative;
+}
+
+#myBtn{
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+  position: fixed; /* Fixed/sticky position */
+  bottom: 5%; /* Place the button at the bottom of the page */
+  right: 7%; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: var(--colorPrimary); /* Set a background color */
+  color: var(--colorPrimaryText); /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 100%; /* Rounded corners */
+  font-size: 1.5rem; /* Increase font size */
+  font-weight: 600;
+  width: 90px;
+  height: 90px;
+  box-shadow: black 0px 20px 30px -10px;
+  transition: 0.15s;
+}
