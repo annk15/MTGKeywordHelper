@@ -41,7 +41,15 @@ export default class Search {
         source: function(request, response) {
           var results = $.ui.autocomplete.filter(availableTags, request.term);
           response(results.slice(0, 10));
+        }, 
+        appendTo: "#container #landingKeywords",
+        open: function (event, ui) {
+          $('#search').addClass('autoOpen');
+        },
+        close: function (event, ui) {
+          $('#search').removeClass('autoOpen');
         }
+        
       });
 
       // Filter cards on Enter
