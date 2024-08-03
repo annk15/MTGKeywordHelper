@@ -6,6 +6,7 @@
   --colorCard: #242526;
   --colorCardTwo: #1d1d1d;
   --colorHover: #3a3b3c;
+  --colorAutoComplete: #2c2d2e;
   --colorPrimaryText: #e4e6eb;
   --colorSecondaryText: #b0b3b8;
 
@@ -89,7 +90,7 @@ body {
   opacity: 0.6;
 }
 
-#searchBar input {
+#landingKeywords .ui-autocomplete-input {
   width: 95%;
   max-width: 700px;
   border: none;
@@ -97,9 +98,10 @@ body {
   border-radius: 12px;
   background-color: var(--colorHover);
   color: var(--colorPrimaryText);
+  align-self: center;
 }
 
-#searchBar input,
+#landingKeywords .ui-autocomplete-input,
 ::placeholder {
   font-size: 0.8rem;
   padding: 1rem;
@@ -107,12 +109,49 @@ body {
   font-weight: 300;
 }
 
-#searchBar input:focus {
-  outline: 1px solid var(--colorSecondaryText);
+#landingKeywords .ui-autocomplete-input:focus {
+  outline: none !important;
+  border: 1px solid var(--colorSecondaryText);
+  
 }
 
-#searchBar button {
+#landingKeywords .ui-autocomplete-input button {
   display: none;
+}
+
+#container #landingKeywords .autoOpen {
+  border-radius: 12px 12px 0px 0px;
+  border-bottom: none;
+}
+
+#ui-id-1{
+  outline: none !important;
+  border-bottom: 1px solid var(--colorSecondaryText);
+  border-left: 1px solid var(--colorSecondaryText);
+  border-right: 1px solid var(--colorSecondaryText);
+  border-top: none;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.ui-menu-item{
+  padding: 5px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.ui-menu-item-wrapper.ui-state-active {
+  background-color: var(--colorHover);
+  color: var(--colorPrimaryText);
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+#ui-id-1,
+.ui-menu-item {
+  text-align: left;
+  background-color: var(--colorAutoComplete);
+  color: var(--colorSecondaryText);
+  font-size: 0.8rem;
 }
 
 /*Flexes card classes*/
