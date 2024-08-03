@@ -206,6 +206,8 @@ def fetchKeywords(url):
   if response.status_code == 200:
       data = response.json()
       data = data["data"]
+      data.sort()
+
   else:
       logg(f"Keywords website responded with: {response.status_code}", LoggType.ERROR)
 
@@ -238,8 +240,6 @@ def main():
                + "From URL " + url, LoggType.INFO)
           descriptionsCount += 1
 
-          updateDescriptionDB(keyword, description, url)
-
           image = fetchKeyImage(keyword)
 
           if image is not None:
@@ -247,6 +247,7 @@ def main():
               logg("Successfully fetched image for keyword", LoggType.INFO)
               imageCount += 1
 
+              updateDescriptionDB(keyword, description, url)
               updateImageDB(keyword, image)
 
           else:
