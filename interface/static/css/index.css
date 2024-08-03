@@ -7,6 +7,7 @@
   --colorCardTwo: #1d1d1d;
   --colorHover: #3a3b3c;
   --colorAutoComplete: #2c2d2e;
+  --colorAutoCompleteBorder:rgb(176, 179, 184, 0.4);
   --colorPrimaryText: #e4e6eb;
   --colorSecondaryText: #b0b3b8;
 
@@ -18,9 +19,10 @@
   box-sizing: border-box;
 }
 
-html{
+html {
   max-height: 100vh;
   max-width: 100vw;
+  overflow: auto;
 }
 
 body {
@@ -41,6 +43,7 @@ body {
   display: flex;
   flex-direction: column;
   margin-top: 10%;
+  gap: 1rem;
 }
 
 /*Styling for landingHeader and all elements flexed by it, the name h1 and the paragraph below */
@@ -71,13 +74,6 @@ body {
   font-weight: 500;
 }
 
-/*Styling for both the paragraph below the header, and the card descriptions*/
-#landingHeader p{
-  color: var(--colorSecondaryText);
-  font-weight: 300;
-  font-size: 0.9rem;
-}
-
 /*Styling for landingKeywords and all elements flexed by it, the search bar, carHolder and all card elements*/
 #landingKeywords {
   display: flex;
@@ -85,7 +81,9 @@ body {
   gap: 5rem;
 }
 
-::placeholder{
+#searchContainer {}
+
+::placeholder {
   color: var(--colorSecondaryText);
   opacity: 0.6;
 }
@@ -95,24 +93,34 @@ body {
   max-width: 700px;
   border: none;
   height: 60px;
+  max-height: 60px;
   border-radius: 12px;
   background-color: var(--colorHover);
   color: var(--colorPrimaryText);
   align-self: center;
+  
 }
 
 #landingKeywords .ui-autocomplete-input,
-::placeholder {
-  font-size: 0.8rem;
-  padding: 1rem;
+#landingKeywords .ui-autocomplete-input,
+::placeholder,
+#ui-id-1{
   font-family: Poppins, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+  font-size: 0.9rem;
+}
+
+
+#landingKeywords .ui-autocomplete-input,
+::placeholder {
+  padding: 1rem;
 }
 
 #landingKeywords .ui-autocomplete-input:focus {
   outline: none !important;
-  border: 1px solid var(--colorSecondaryText);
-  
+  border: 1px solid var(--colorAutoCompleteBorder);
+
 }
 
 #landingKeywords .ui-autocomplete-input button {
@@ -124,17 +132,12 @@ body {
   border-bottom: none;
 }
 
-#ui-id-1{
+#ui-id-1 {
   outline: none !important;
-  border-bottom: 1px solid var(--colorSecondaryText);
-  border-left: 1px solid var(--colorSecondaryText);
-  border-right: 1px solid var(--colorSecondaryText);
+  border-bottom: 1px solid var(--colorAutoCompleteBorder);
+  border-left: 1px solid var(--colorAutoCompleteBorder);
+  border-right: 1px solid var(--colorAutoCompleteBorder);
   border-top: none;
-  border-radius: 0px 0px 6px 6px;
-}
-
-.ui-menu-item{
-  padding: 5px;
   border-radius: 0px 0px 6px 6px;
 }
 
@@ -142,8 +145,16 @@ body {
   background-color: var(--colorHover);
   color: var(--colorPrimaryText);
   border: none;
-  border-radius: 6px;
-  padding: 5px;
+}
+
+.ui-menu-item,
+.ui-menu-item-wrapper.ui-state-active{
+  height: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0px 0px 6px 6px;
+  width: 100%;
 }
 
 #ui-id-1,
@@ -151,7 +162,6 @@ body {
   text-align: left;
   background-color: var(--colorAutoComplete);
   color: var(--colorSecondaryText);
-  font-size: 0.8rem;
 }
 
 /*Flexes card classes*/
@@ -161,6 +171,7 @@ body {
   gap: 2rem;
   row-gap: 5rem;
   justify-content: center;
+  min-height: 100vh;
 }
 
 .card {
@@ -169,7 +180,7 @@ body {
   -webkit-user-select: none;
   -o-user-select: none;
   user-select: none;
-  
+
   aspect-ratio: 5 / 8;
   display: flex;
   flex-direction: column;
@@ -193,18 +204,18 @@ body {
   height: 40%;
   background-size: cover;
   border-radius: 15px 15px 0px 0px;
-  flex:1.5;
+  flex: 1.5;
 }
 
-.cardTextContainer{
+.cardTextContainer {
   flex: 2;
   border-radius: 0 0 15px 15px;
   max-width: 80%;
   text-align: left;
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:left;
+  justify-content: center;
+  align-items: left;
   gap: 5%;
   overflow: hidden;
 }
@@ -221,31 +232,43 @@ body {
   font-weight: 400;
 }
 
-.hidden{
+.hidden {
   opacity: 0;
-  position:absolute;
+  position: absolute;
 }
 
-.visible{
+.visible {
   opacity: 1;
   position: relative;
 }
 
-#myBtn{
+#myBtn {
   -webkit-tap-highlight-color: transparent;
   opacity: 0;
-  position: fixed; /* Fixed/sticky position */
-  bottom: 5%; /* Place the button at the bottom of the page */
-  right: 7%; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  background-color: var(--colorPrimary); /* Set a background color */
-  color: var(--colorPrimaryText); /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 15px; /* Some padding */
-  border-radius: 100%; /* Rounded corners */
-  font-size: 1.5rem; /* Increase font size */
+  position: fixed;
+  /* Fixed/sticky position */
+  bottom: 5%;
+  /* Place the button at the bottom of the page */
+  right: 7%;
+  /* Place the button 30px from the right */
+  z-index: 99;
+  /* Make sure it does not overlap */
+  border: none;
+  /* Remove borders */
+  outline: none;
+  /* Remove outline */
+  background-color: var(--colorPrimary);
+  /* Set a background color */
+  color: var(--colorPrimaryText);
+  /* Text color */
+  cursor: pointer;
+  /* Add a mouse pointer on hover */
+  padding: 15px;
+  /* Some padding */
+  border-radius: 100%;
+  /* Rounded corners */
+  font-size: 1.5rem;
+  /* Increase font size */
   font-weight: 600;
   width: 90px;
   height: 90px;
