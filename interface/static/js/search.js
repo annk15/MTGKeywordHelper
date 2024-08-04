@@ -42,7 +42,7 @@ export default class Search {
           var results = $.ui.autocomplete.filter(availableTags, request.term);
           response(results.slice(0, 10));
         }, 
-        appendTo: "#container #landingKeywords",
+        appendTo: "#container #landingKeywords #searchContainer",
         open: function (event, ui) {
           $('#search').addClass('autoOpen');
         },
