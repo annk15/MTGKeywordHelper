@@ -1,7 +1,7 @@
 export default class ScrollUpButton {
 
     constructor(buttonId) {
-        this.mybutton = document.getElementById(buttonId);
+        this.mybutton = document.getElementById("topBtn");
 
         window.onscroll = this.scrollFunction.bind(this);
 
@@ -10,9 +10,9 @@ export default class ScrollUpButton {
 
     scrollFunction() {
         if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
-            this.mybutton.style.opacity = '1';
+            this.mybutton.classList.add("visible");
         } else {
-            this.mybutton.style.opacity = '0';
+            this.mybutton.classList.remove("visible");
         }
     }
 
