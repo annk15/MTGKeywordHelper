@@ -1,85 +1,92 @@
 from unidecode import unidecode
-import fitz
 import re
 import json
+import requests
+from bs4 import BeautifulSoup
 
-def processText(text):
-    return text.replace('\u201c', '“').replace('\u201d','”').replace('\u2019','’')
+def get_rule(url):
+    response = requests.get(url)
 
-def readPDF(pdf_path):
-    doc = fitz.open(pdf_path)
-    text = ""
-    startPage = 4
-    for page in doc:
+    if response.status_code == 200:
+        html_content = response.text
 
-        if page.number < startPage:
-            continue
-        elif re.findall("^Glossary", page.get_text(), re.MULTILINE):
-            break
+        soup = BeautifulSoup(html_content, 'html.parser')
 
-        text += page.get_text()
+        for link in soup.find_all('a'):
+            href = link.get('href')
+            if href and href.endswith('.txt'):
+                txt_link = href
+                print("Found rule file at: " + txt_link)
 
-    return text
+                response = requests.get(txt_link)
 
-def parseText(text):
-    lines = text.splitlines()
+                if response.status_code == 200:
 
-    firstLevelPattern = r'^\d{1,2}\.\s(.*)'
-    secondLevelPattern = r'^\d{3,}\.\s(.*)'
-    thirdLevelPattern = r'^\d{3,}\.\d+\.\s(.*)'
-    fourthLevelPattern = r'^\d{3,}\.\d+[a-zA-Z]\s(.*)'
+                    print("Successfully downloaded text file!")
 
-    currentChapterName = ""
-    currentTitleName = ""
-    currentSubTitleName = ""
+                    return response.text.splitlines()
 
-    contentStructure = {}
-    currentTitleDict = None
+                break
+    else:
+        print('Failed to download the HTML content. Status code:', response.status_code)
 
-    toWrite = None
+def parse_rules(content):
 
-    for line in lines:
+    first_level_pattern = r'^\d{1,2}\.\s(.*)'
+    second_level_pattern = r'^\d{3,}\.\s(.*)'
+    third_level_pattern = r'^\d{3,}\.\d+\.\s(.*)'
+    fourth_level_pattern = r'^\d{3,}\.\d+[a-zA-Z]\s(.*)'
+    glossary_pattern = r'^Glossary'
+
+    current_chapter_name = ""
+    current_title_name = ""
+
+    content_structure = {}
+
+    start_parsing = False
+    glossary_counter = 0
+
+    for line in content:
         line = line.strip()
         line = unidecode(line)
 
-        firstLevel = re.findall(firstLevelPattern, line, re.MULTILINE)
-        secondLevel = re.findall(secondLevelPattern, line, re.MULTILINE)
-        thirdLevel = re.findall(thirdLevelPattern, line, re.MULTILINE)
-        fourthLevel = re.findall(fourthLevelPattern, line, re.MULTILINE)
+        first_level = re.findall(first_level_pattern, line, re.MULTILINE)
+        second_level = re.findall(second_level_pattern, line, re.MULTILINE)
+        third_level = re.findall(third_level_pattern, line, re.MULTILINE)
+        fourth_level = re.findall(fourth_level_pattern, line, re.MULTILINE)
+        glossary_level = re.findall(glossary_pattern, line, re.MULTILINE)
 
-        if line == "":
-            toWrite = None
-            continue
+        # Create the data structure
+        if start_parsing:
+            if first_level:
+                current_chapter_name = first_level[0]
+                content_structure[current_chapter_name] = {}
+            elif second_level:
+                current_title_name = second_level[0]
+                content_structure[current_chapter_name][current_title_name] = []
+            elif third_level:
+                content_structure[current_chapter_name][current_title_name].append([third_level[0],[]])
+            elif fourth_level:
+                content_structure[current_chapter_name][current_title_name][-1][1].append(fourth_level[0])
 
-        if toWrite == None:
-            if firstLevel:
-                currentChapterName = firstLevel[0]
-                contentStructure[currentChapterName] = {}
-                continue
-            elif secondLevel:
-                currentTitleName = secondLevel[0]
-                currentTitleDict = {}
-                contentStructure[currentChapterName][currentTitleName] = []
-                continue
-            elif thirdLevel:
-                contentStructure[currentChapterName][currentTitleName].append([thirdLevel[0],[]])
-                continue
-            elif fourthLevel:
-                contentStructure[currentChapterName][currentTitleName][-1][1].append(fourthLevel[0])
-                continue
+        # Count number of times a row start with "Glossary", this marks both the start and end of the rules file
+        if glossary_level:
+            glossary_counter += 1
 
-        toWrite = True
+        # First time, enable parsing of the following rows
+        # Second time, stop parsing rows by exiting the loop
+        if glossary_counter == 1:
+            start_parsing = True
+        if glossary_counter == 2:
+            break
 
-        if len(contentStructure[currentChapterName][currentTitleName][-1][1]) > 0:
-            contentStructure[currentChapterName][currentTitleName][-1][1][-1] += line
-        else:
-            contentStructure[currentChapterName][currentTitleName][-1][0] += line
+    print("File successfully parsed!")
 
-    return contentStructure
+    return content_structure
 
-# Main code
-text = readPDF('MagicCompRules 20240802.pdf')
-structured_content = parseText(text)
+
+rule_content = get_rule("https://magic.wizards.com/en/rules")
+structured_content = parse_rules(rule_content)
 
 jsonString = json.dumps(structured_content, indent=5)
 with open("rules.json", "w") as file:
