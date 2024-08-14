@@ -48,9 +48,9 @@ export default class CardContainer {
 
     // Add each card to the cardholder when new data is recived
     onKeywordInfoData(data) {
-        data.forEach(async ({ keyword, description }) => {
+        data.forEach(async ({ keyword, reminder_text }) => {
             try {
-                const card = this.createCard(keyword, description);
+                const card = this.createCard(keyword, reminder_text);
                 cardHolder.appendChild(card);
             } catch (error) {
                 console.error('Error rendering cards:', error.message);

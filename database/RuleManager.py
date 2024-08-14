@@ -48,7 +48,7 @@ class RuleManager:
 
                         print("Successfully downloaded text file!")
 
-                        return response.text.splitlines()
+                        return response.content.decode('utf-8').splitlines()
 
                     break
         else:
@@ -73,7 +73,7 @@ class RuleManager:
 
         for line in content:
             line = line.strip()
-            line = unidecode(line)
+            #line = unidecode(line)
 
             first_level = re.findall(first_level_pattern, line, re.MULTILINE)
             second_level = re.findall(second_level_pattern, line, re.MULTILINE)

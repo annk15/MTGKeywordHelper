@@ -1,0 +1,8 @@
+swamp
+plains
+forest
+island
+mountain
+brawl
+prize
+basic
