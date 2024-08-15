@@ -16,12 +16,12 @@ keywords_source_url = "https://mtg.fandom.com/api.php?action=query&format=json&f
 reminder_source_url = "https://mtg.fandom.com/api.php?format=json&action=query&prop=revisions&rvprop=content&explaintext&redirects=1&titles="
 image_source_url = "https://api.scryfall.com/cards/random?q=oracle%3A"
 
-debug = True
-
 class LoggType(Enum):
     ERROR = 1
     WARNING = 2
     INFO = 3
+
+debug = LoggType.WARNING
 
 def logg(text, type = None):
 
@@ -29,7 +29,10 @@ def logg(text, type = None):
         print(text)
         return
 
-    if debug or type is LoggType.ERROR:
+    if debug == None or type == None:
+        return
+
+    if debug.value >= type.value:
         print(type.name + " : " +  text)
 
 def init_database():
@@ -133,7 +136,7 @@ def clean_reminder(text):
     cleaned_text = re.sub(r"\[\[(.*?)\]\]", r"[\1]", cleaned_text)
     cleaned_text = re.sub(r"{{T}}", "(Tap)", cleaned_text)
     cleaned_text = re.sub(r"{{(\d+|X)}}", r"(\1 Colorless)", cleaned_text)
-
+    cleaned_text = cleaned_text.rstrip('\n')
 
     if cleaned_text != text:
         logg(f"Reminder text was cleaned,\noriginal text : \"{text}\"\ncleaned text : \"{cleaned_text}\"", LoggType.INFO)
@@ -274,8 +277,6 @@ def main():
     fetch_start_time = time.time()
 
     keywords = fetch_keywords(keywords_source_url)
-
-    #keywords = ["amass"]
 
     for keyword in keywords:
 
