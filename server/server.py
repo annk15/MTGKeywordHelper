@@ -18,7 +18,6 @@ DB_CONFIG = {
 def getConnection():
 
     try:
-
         connection = mysql.connector.connect(**DB_CONFIG)
 
         if connection.is_connected():
@@ -52,7 +51,7 @@ def keywordAbilities():
     connection = getConnection()
     cursor = connection.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM keyword_abilities")
+    cursor.execute("SELECT * FROM keyword_reminders")
     items = cursor.fetchall()
 
     cursor.close()
@@ -66,13 +65,13 @@ def keywords():
     connection = getConnection()
     cursor = connection.cursor(dictionary=True)
 
-    cursor.execute("SELECT keyword FROM keyword_abilities")
+    cursor.execute("SELECT reminder_text FROM keyword_reminders")
     items = cursor.fetchall()
 
     cursor.close()
     connection.close()
 
-    return jsonify([item['keyword'] for item in items]), 200
+    return jsonify([item['reminder_text'] for item in items]), 200
 
 @app.route('/keyword-image/<string:keyword>', methods=['GET'])
 def keywordImages(keyword):

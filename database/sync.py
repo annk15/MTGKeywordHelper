@@ -1,8 +1,9 @@
 import requests
 import mysql.connector
 import re
-from enum import Enum
 import time
+import urllib.parse
+from enum import Enum
 
 db_config = {
   "host": "127.0.0.1",
@@ -11,24 +12,30 @@ db_config = {
   "password": "password"
 }
 
-debug = True
+keywords_source_url = "https://mtg.fandom.com/api.php?action=query&format=json&formatversion=2&list=categorymembers&cmlimit=500&cmtitle=Category%3AGlossary"
+reminder_source_url = "https://mtg.fandom.com/api.php?format=json&action=query&prop=revisions&rvprop=content&explaintext&redirects=1&titles="
+image_source_url = "https://api.scryfall.com/cards/random?q=oracle%3A"
 
 class LoggType(Enum):
     ERROR = 1
     WARNING = 2
     INFO = 3
 
+debug = LoggType.WARNING
+
 def logg(text, type = None):
 
     if type is None:
-        print()
         print(text)
         return
 
-    if debug or type is LoggType.ERROR:
+    if debug == None or type == None:
+        return
+
+    if debug.value >= type.value:
         print(type.name + " : " +  text)
 
-def initDB():
+def init_database():
 
   try:
 
@@ -49,7 +56,7 @@ def initDB():
       cursor.execute(
               """
               CREATE TABLE IF NOT EXISTS
-              keyword_abilities(keyword varchar(50) PRIMARY KEY, description varchar(500), url varchar(500));
+              keyword_reminders(keyword varchar(50) PRIMARY KEY, reminder_text varchar(500));
               """)
 
       cursor.execute(
@@ -67,7 +74,7 @@ def initDB():
           if cnx:
               cnx.close()
 
-def updateDescriptionDB(keyword, description, url):
+def update_database_reminders(keyword, reminder_text):
 
   try:
 
@@ -81,10 +88,10 @@ def updateDescriptionDB(keyword, description, url):
 
       cursor.execute(
               """
-              INSERT INTO keyword_abilities (keyword, description, url)
-              VALUES (%s, %s, %s)
-              ON DUPLICATE KEY UPDATE description = %s;
-              """, (keyword, description, url, description))
+              INSERT INTO keyword_reminders (keyword, reminder_text)
+              VALUES (%s, %s)
+              ON DUPLICATE KEY UPDATE reminder_text = %s;
+              """, (keyword, reminder_text, reminder_text))
 
       cnx.commit()
 
@@ -95,7 +102,7 @@ def updateDescriptionDB(keyword, description, url):
           if cnx:
               cnx.close()
 
-def updateImageDB(keyword, image):
+def update_database_image(keyword, image):
 
   try:
 
@@ -123,23 +130,26 @@ def updateImageDB(keyword, image):
           if cnx:
               cnx.close()
 
-def parseText(text, pattern):
+def clean_reminder(text):
 
-  match = re.search(pattern, text, re.DOTALL)
+    cleaned_text = re.sub(r"<[^>]+/?>(?:</[^>]+>)?", '', text)
+    cleaned_text = re.sub(r"\[\[(.*?)\]\]", r"[\1]", cleaned_text)
+    cleaned_text = re.sub(r"{{T}}", "(Tap)", cleaned_text)
+    cleaned_text = re.sub(r"{{(\d+|X)}}", r"(\1 Colorless)", cleaned_text)
+    cleaned_text = cleaned_text.rstrip('\n')
 
-  if match:
-      return match.group(1).strip()
-  else:
-      return None
+    if cleaned_text != text:
+        logg(f"Reminder text was cleaned,\noriginal text : \"{text}\"\ncleaned text : \"{cleaned_text}\"", LoggType.INFO)
 
-def getKeyDescription(keyword):
+    return cleaned_text
 
-  keyword = keyword.capitalize().replace(" ", "_")
+def fetch_keyword_reminder(keyword):
 
-  url = (
-      "https://mtg.fandom.com/api.php?format=json&action=query&prop=revisions&rvprop=content&explaintext&redirects=1&titles="
-      + keyword
-  )
+  keyword = keyword.replace(" ", "_")
+
+  url = (reminder_source_url + urllib.parse.quote(keyword))
+
+  logg("Will fetch data from URL : " + url, LoggType.INFO)
 
   response = requests.get(url)
 
@@ -149,116 +159,153 @@ def getKeyDescription(keyword):
           data = response.json()
           text = list(data["query"]["pages"].values())[0]["revisions"][0]["*"]
 
-          if text is not None:
-              infoboxText = parseText(text, r'\{\{Infobox\s\w+\n([\s\S]*?)\}\}')
-          else:
-              logg("Failed to parse infobox for keyword " + keyword, LoggType.WARNING)
+          if not text:
+            logg("Failed to parse infobox for keyword " + keyword, LoggType.WARNING)
+            return None
 
-          if infoboxText is not None:
-              return parseText(infoboxText, r"\| reminder\s*=\s*([^|]*)\|"), url
+          infobox_text = re.findall(r'\{\{Infobox [^\|]*\|(.*?)\n\}\}', text, re.DOTALL)
+
+          logg("Parsed infobox : " + str(infobox_text), LoggType.INFO)
+
+          if not infobox_text:
+            logg("Failed to find infobox for keyword " + keyword + " at page " + url, LoggType.WARNING)
+            return None
+
+          reminder = re.findall(r"\|\s*\b(reminder|text|rules)\b\s*=\s*(.*?)\n\|", infobox_text[0])
+
+          logg("Parsed reminder : " + str(reminder), LoggType.INFO)
+
+          if not reminder:
+            logg("Failed to find reminder text for keyword " + keyword, LoggType.WARNING)
           else:
-              logg("Failed to parse remainder text for keyword " + keyword, LoggType.WARNING)
+            return clean_reminder(reminder[0][1])
 
       except KeyError:
           data = None
-          logg("Wiki not found for keyword " + keyword + ", this keyword will be ignored", LoggType.WARNING)
+          logg("Wiki not found for keyword", LoggType.WARNING)
 
   else:
-      logg(f"Description website responded with: {response.status_code}", LoggType.ERROR)
+      logg(f"Description site responded with: {response.status_code}", LoggType.WARNING)
 
-  return None, url
+  return None
 
-def fetchKeyImage(keyword):
+def fetch_keyword_image(keyword):
 
     keyword = keyword.replace(" ","+oracle%3A").lower()
-    url = "https://api.scryfall.com/cards/random?q=oracle%3A"+keyword
+    url = image_source_url+keyword
 
     logg("Will fetch image from url " + url, LoggType.INFO)
 
     response = requests.get(url)
-    data = None
-
     if response.status_code == 200:
 
       data = response.json()
 
       # If card only exist in one version it will be available at top level, if not we pick the first version of the card
       if "image_uris" in data:
-        imageUrl = data["image_uris"]["art_crop"]
+        image_url = data["image_uris"]["art_crop"]
       else:
-        imageUrl = data["card_faces"][0]["image_uris"]["art_crop"]
+        image_url = data["card_faces"][0]["image_uris"]["art_crop"]
 
-      response = requests.get(imageUrl)
+      response = requests.get(image_url)
       response.raise_for_status()  # Check if the request was successful
 
       return response.content
 
     else:
-      logg(f"Card image website responded with: {response.status_code}", LoggType.ERROR)
+      logg(f"Image site at {url} with keyword {keyword} responded with: {response.status_code}", LoggType.WARNING)
 
-    return data
+    return None
 
-def fetchKeywords(url):
+def fetch_keyword_blacklist():
+    filename = "blacklist.txt"
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+            lines = [line.strip().lower() for line in lines]
+            return lines
+    except FileNotFoundError:
+        logg(f"Failed to open blacklist file {filename}, all keywords will be allowed!", LoggType.INFO)
+        return []
 
-  response = requests.get(url)
-  data = None
+def fetch_keywords(url):
+    keywords = []
+    original_url = url
 
-  if response.status_code == 200:
-      data = response.json()
-      data = data["data"]
-      data.sort()
+    keyword_blacklist = fetch_keyword_blacklist()
 
-  else:
-      logg(f"Keywords website responded with: {response.status_code}", LoggType.ERROR)
+    while True:
+        response = requests.get(url)
+        if response.status_code == 200:
 
-  return data
+            data = response.json()
+
+            keywords.extend(data["query"]["categorymembers"])
+
+            if "continue" in data:
+                url = original_url + "&cmcontinue=" + data["continue"]["cmcontinue"]
+            else:
+                break
+
+        else:
+            logg(f"Keywords website responded with: {response.status_code}", LoggType.ERROR)
+            break
+
+    logg(f"Blacklisted keywords : {keyword_blacklist} will not be processed!", LoggType.INFO)
+
+    stripped_keywords = []
+    for keyword in keywords:
+
+        keyword = keyword['title']
+
+        if keyword.lower() not in keyword_blacklist:
+            stripped_keywords.append(keyword)
+        else:
+            logg(f"Keyword {keyword} is blacklisted and will not be processed!", LoggType.WARNING)
+
+    return stripped_keywords
 
 def main():
 
-  logg("Adding keywords and descriptions to the database, please wait")
+    logg("Adding keywords and descriptions to the database, please wait")
 
-  initDB()
+    init_database()
 
-  keywordAbilities = fetchKeywords("https://api.scryfall.com/catalog/keyword-abilities")
-  keywordActions = fetchKeywords("https://api.scryfall.com/catalog/keyword-actions")
+    keyword_count = 0
+    failed_keywords = []
 
-  keywordCount = 0
-  descriptionsCount = 0
-  imageCount = 0
+    fetch_start_time = time.time()
 
-  fetchStartTime = time.time()
+    keywords = fetch_keywords(keywords_source_url)
 
-  for keyword in keywordAbilities + keywordActions:
+    for keyword in keywords:
 
-      logg("Processing keyword : " + keyword)
-      keywordCount += 1
+        logg("Processing keyword : " + keyword, LoggType.INFO)
 
-      description, url = getKeyDescription(keyword)
-      if description is not None:
+        keyword_reminder = fetch_keyword_reminder(keyword)
 
-          logg("Successfully fetched description : " + description + "\n"
-               + "From URL " + url, LoggType.INFO)
-          descriptionsCount += 1
+        if not keyword_reminder:
+            failed_keywords.append(keyword)
+            continue
 
-          image = fetchKeyImage(keyword)
+        image = fetch_keyword_image(keyword)
 
-          if image is not None:
+        if not image:
+            logg("No image found for keyword", LoggType.WARNING)
+            continue
 
-              logg("Successfully fetched image for keyword", LoggType.INFO)
-              imageCount += 1
+        logg("Successfully fetched image for keyword", LoggType.INFO)
 
-              updateDescriptionDB(keyword, description, url)
-              updateImageDB(keyword, image)
+        update_database_reminders(keyword, keyword_reminder)
+        update_database_image(keyword, image)
+        keyword_count += 1
 
-          else:
-              logg("No image found for keyword", LoggType.WARNING)
+        logg("Added keyword " + keyword + " to database!")
+        logg("Successfully fetched description : " + keyword_reminder, LoggType.INFO)
 
-  logg("Successfully fetched : \n"
-       + str(keywordCount) + " keywords \n"
-       + str(descriptionsCount) + " descriptions \n"
-       + str(imageCount) + " images \n"
-       + "Total time : " + str(int(time.time() - fetchStartTime)) + " seconds")
+    logg("Successfully fetched : " + str(keyword_count) + " keywords \n"
+        "Failed to fetch the following keywords : " + str(failed_keywords) + "\n"
+        + "Total runtime : " + str(int(time.time() - fetch_start_time)) + " seconds")
 
 if __name__ == "__main__":
-
   main()
