@@ -1,6 +1,8 @@
-# MTGKeywordHelper (Magic The Gathering Keyword Helper)
+# React + Vite
 
-A tool to search and find descriptions for keywords used in magic the gathering.
-The project contains both the front and backend and we aim to make the tool easy to both use and deploy.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently the project is under heavy development so expect bugs and quick changes in functionality.
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
