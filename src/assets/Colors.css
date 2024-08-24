@@ -1,0 +1,11 @@
+:root {
+    --colorPrimary: #f56b1d;
+    --colorBackground: #18191a;
+    --colorCard: #1d1d1d;
+    --colorHover: #3a3b3c;
+    --colorAutoComplete: #2c2d2e;
+    --colorAutoCompleteBorder:#b0b3b866;
+    --colorPrimaryText: #e4e6eb;
+    --colorSecondaryText: #b0b3b8;
+  }
+  
