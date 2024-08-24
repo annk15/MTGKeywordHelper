@@ -22,11 +22,11 @@ function CardContainer({ searchQuery }) {
 
   return (
     <div className={Styles['card-container']}>
-      {filteredData.map(({ keyword, description, imageUrl }, index) => (
+      {filteredData.map(({ keyword, reminder_text, imageUrl }, index) => (
         <Card
           key={index}
           title={keyword}
-          description={description}
+          description={reminder_text}
           imageUrl={imageUrl}
         />
       ))}

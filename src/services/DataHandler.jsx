@@ -8,13 +8,14 @@ export function useData() {
 }
 
 async function fetchKeywordInfoData() {
-  const url = 'http://192.168.0.187:5080/keyword-abilities';
+  const url = 'http://192.168.0.112:5080/keyword-abilities';
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
+    console.log(data); 
     return await Promise.all(
       data.map(async (item) => {
         const imageUrl = await fetchKeywordImageData(item.keyword);
@@ -28,7 +29,7 @@ async function fetchKeywordInfoData() {
 }
 
 async function fetchKeywordImageData(keyword) {
-  const url = `http://192.168.0.187:5080/keyword-image/${keyword}`;
+  const url = `http://192.168.0.112:5080/keyword-image/${keyword}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
