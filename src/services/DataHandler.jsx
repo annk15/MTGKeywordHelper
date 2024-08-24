@@ -15,7 +15,6 @@ async function fetchKeywordInfoData() {
       throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data); 
     return await Promise.all(
       data.map(async (item) => {
         const imageUrl = await fetchKeywordImageData(item.keyword);
