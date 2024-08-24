@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { API_BASE_URL, API_KEYWORD_URL, API_IMAGE_URL } from '../utils/config';
 
 // Create a context to provide the data
 const DataContext = createContext();
@@ -8,9 +9,9 @@ export function useData() {
 }
 
 async function fetchKeywordInfoData() {
-  const url = 'http://192.168.0.112:5080/keyword-abilities';
   try {
-    const response = await fetch(url);
+    const response = await fetch(`${API_BASE_URL}/${API_KEYWORD_URL}`);
+    console.log(response);
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
@@ -28,7 +29,7 @@ async function fetchKeywordInfoData() {
 }
 
 async function fetchKeywordImageData(keyword) {
-  const url = `http://192.168.0.112:5080/keyword-image/${keyword}`;
+  const url = `${API_BASE_URL}/${API_IMAGE_URL}/${keyword}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
