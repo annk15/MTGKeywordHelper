@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+database/.DS_Store
+database/data/
+database/venv/
+server/venv/
+.env
+__pycache__/
+*.pyc
