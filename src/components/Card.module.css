@@ -1,0 +1,70 @@
+.card {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+    aspect-ratio: 5 / 8;  /* 5/8 is previous ratio*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--colorCard);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 15.5rem;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.card-image-container{
+    width: 100%;
+    height: 43%;
+}
+
+.card-image {
+    width: 100%;
+    background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c4022944-34e6-4587-bf5a-33b77b27f0a3/da9c28k-c6cdb8a9-d819-4d11-8b4f-783400477b1a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2M0MDIyOTQ0LTM0ZTYtNDU4Ny1iZjVhLTMzYjc3YjI3ZjBhM1wvZGE5YzI4ay1jNmNkYjhhOS1kODE5LTRkMTEtOGI0Zi03ODM0MDA0NzdiMWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Rsdw9Hp2VrqFltU_jhclQLUv4eLvuKo5Hb-yEXvvKjs);
+    background-size: cover;
+    height: 100%;
+  }
+
+  .card-text-container {
+    height:57%;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 7%;
+    gap: 7%;
+  }
+
+  .card-title{
+    color: var(--colorPrimaryText);
+    letter-spacing: 1px;
+    text-align: left;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .card-description{
+    /*Ellipsis overflow*/
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    line-clamp: 6;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--colorSecondaryText);
+  }
+
+  .card-break{
+    border: 1px inset var(--colorCard);
+    width: 100%;
+    opacity: 0.7;
+  }

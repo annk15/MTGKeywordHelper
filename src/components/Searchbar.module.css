@@ -1,0 +1,20 @@
+.search-bar {
+    width: 100%;
+    max-width: 700px;
+    border: none;
+    height: 60px;
+    max-height: 60px;
+    border-radius: 12px;
+    background-color: var(--colorHover);
+    color: var(--colorPrimaryText);
+    align-self: center;
+    padding: 1rem;
+    letter-spacing: 0.05rem;
+    font-size: 1rem;
+}
+
+::placeholder {
+    color: var(--colorSecondaryText);
+    opacity: 0.6;
+    padding: 0.5rem;
+}
