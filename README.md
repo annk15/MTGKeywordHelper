@@ -15,6 +15,7 @@ This project is a fan-made website that lists all Magic: The Gathering keywords 
     - [Important Licensing Notice](#important-licensing-notice)
     - [Fan Content Policy](#fan-content-policy)
 ---
+
 > [!IMPORTANT]
 >### Important Notice Regarding Content
 >**This project is a fan-made creation and is intended for non-commercial, personal use only.** It utilizes Magic: The Gathering intellectual property (such as card images, names, etc.), which is the property of Wizards of the Coast. <br></br>
@@ -32,7 +33,8 @@ This project includes both the front-end and back-end. Please note that the proj
 ### Prerequisites
 
 - Node.js (version x.x.x)
-- npm (version x.x.x) or yarn (version x.x.x)
+- npm (version x.x.x)
+- Docker (version x.x.x)
 
 ### Installation
 
@@ -76,7 +78,7 @@ To use the website:
 <br> </br>
 
 ## Contributing
-Contributions are welcome! If you plan on adding a large feature or a significant bug fix, please [create an issue](https://github.com/yourusername/yourprojectname/issues) first.
+Contributions are welcome! If you plan on adding a large feature or a significant bug fix, please [create an issue](https://github.com/annk15/MTGKeywordHelper/issues) first.
 
 Here are some guidelines to follow:
 
