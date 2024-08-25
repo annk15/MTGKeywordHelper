@@ -6,13 +6,13 @@ This project is a fan-made website that lists all Magic: The Gathering keywords 
 
 - [Important Notice Regarding Content](#important-notice-regarding-content)
 - [Description](#description)
-- [Installation](#-wrench-installation)
+- [Installation](#wrench-installation)
 - [Usage](#usage)
     - [Prerequisites](#prerequisites)
-    - [Accessing the Website](#accessing-the-website)
+    - [Run](#run)
 - [Contributing](#contributing)
 - [License](#license)
-    - [Important Licensing Notice](#important-licensing-notice)
+    - [License Disclaimer](#license-disclaimer)
     - [Fan Content Policy](#fan-content-policy)
 ---
 
@@ -29,6 +29,7 @@ Please note that the code in this project is licensed under the MIT License, but
 This project includes both the front-end and back-end. Please note that the project is under active development, so expect bugs and rapid changes in functionality.
 
 ## :wrench: Installation
+
 To install this project locally, follow these steps:
 
 1. **Clone the repository:**
@@ -43,7 +44,19 @@ To install this project locally, follow these steps:
     ```bash
     npm install
     ```
-4. **Start the server:**
+
+## Usage
+
+### Prerequisites
+
+- Node.js (version x.x.x)
+- npm (version x.x.x)
+- Docker (version x.x.x)
+
+### Run
+To use the website:
+
+1. **Start the server:**
     ```bash
     cd server/
     run-server.ps1
@@ -53,26 +66,14 @@ To install this project locally, follow these steps:
     cd server/
     run-server.sh
     ```
-5. **Start the development server:**
+2. **Start the development server:**
     ```bash
     npm run dev
     ```
-    
-## Usage
-
-### Prerequisites
-
-- Node.js (version x.x.x)
-- npm (version x.x.x)
-- Docker (version x.x.x)
-
-### Accessing the Website
-To use the website:
-
-1. Open your browser and navigate to `http://localhost:3000` (or the appropriate port).
-2. Use the search bar to find a keyword, or alternatively, scroll down to browse.
+3. Open your browser and navigate to `http://localhost:3000` (or the appropriate port).
 
 **It should look something like this:**
+
 ![Screenshot of_site](https://github.com/user-attachments/assets/a298bab5-2f5b-4cf6-9685-fe769fac96a4)
 <br> </br>
 
@@ -89,16 +90,11 @@ Here are some guidelines to follow:
 
 ## License
 
-
-
-### Important Licensing Notice
-
-This project incorporates Magic: The Gathering content, which is the property of Wizards of the Coast. This content is used in compliance with Wizards of the Coast's [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy). **Users of this project must adhere to this policy and understand that the Magic: The Gathering content is not licensed under (the same license as this project).**
-
+### License Disclaimer
+This project incorporates Magic: The Gathering content, which is the property of Wizards of the Coast. This content is used in compliance with Wizards of the Coast's [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy). **Users of this project must adhere to this policy and understand that the Magic: The Gathering content is not licensed under (the same license as this project).** <br></br>
 Additionally, if any content is retrieved from third-party sources (e.g., a wiki API), it is subject to the licensing terms of that content's original license.
 
-### Fan Content Policy
-
+#### Fan Content Policy
 This project is compliant with the Wizards of the Coast Fan Content Policy. The content used in this project is for non-commercial purposes and is intended to celebrate the Magic: The Gathering game and community.
 
 All Magic: The Gathering card images, logos, and art are the property of Wizards of the Coast. **This project is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC.** For more information on Wizards of the Coast’s policies, please visit the [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy).
