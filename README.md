@@ -6,9 +6,9 @@ This project is a fan-made website that lists all Magic: The Gathering keywords 
 
 - [Important Notice Regarding Content](#important-notice-regarding-content)
 - [Description](#description)
+- [Installation](#-wrench-installation)
 - [Usage](#usage)
     - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
     - [Accessing the Website](#accessing-the-website)
 - [Contributing](#contributing)
 - [License](#license)
@@ -28,17 +28,8 @@ Please note that the code in this project is licensed under the MIT License, but
 
 This project includes both the front-end and back-end. Please note that the project is under active development, so expect bugs and rapid changes in functionality.
 
-## Usage
-
-### Prerequisites
-
-- Node.js (version x.x.x)
-- npm (version x.x.x)
-- Docker (version x.x.x)
-
-### Installation
-
-To run this project locally, follow these steps:
+## :wrench: Installation
+To install this project locally, follow these steps:
 
 1. **Clone the repository:**
     ```bash
@@ -66,6 +57,14 @@ To run this project locally, follow these steps:
     ```bash
     npm run dev
     ```
+    
+## Usage
+
+### Prerequisites
+
+- Node.js (version x.x.x)
+- npm (version x.x.x)
+- Docker (version x.x.x)
 
 ### Accessing the Website
 To use the website:
