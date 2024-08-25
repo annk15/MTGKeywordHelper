@@ -20,7 +20,7 @@ This project is a fan-made website that lists all Magic: The Gathering keywords 
 >### Important Notice Regarding Content
 >**This project is a fan-made creation and is intended for non-commercial, personal use only.** It utilizes Magic: The Gathering intellectual property (such as card images, names, etc.), which is the property of Wizards of the Coast. <br></br>
 All Magic: The Gathering content is used in accordance with Wizards of the Coast's [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy). **This project is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC.** The use of this content is for informational and entertainment purposes only. <br></br>
-Please note that the code in this project is licensed under the (add license later), but the Magic: The Gathering content is not covered by this license and is subject to Wizards of the Coast’s policies.
+Please note that the code in this project is licensed under the MIT license, but the Magic: The Gathering content is not covered by this license and is subject to Wizards of the Coast’s policies.
 ---
 ## Description
 
@@ -73,7 +73,7 @@ To use the website:
 
 **It should look something like this:**
 
-![Screenshot of_site](https://github.com/user-attachments/assets/a298bab5-2f5b-4cf6-9685-fe769fac96a4)
+![Screenshot of site](https://github.com/user-attachments/assets/a298bab5-2f5b-4cf6-9685-fe769fac96a4)
 <br> </br>
 
 ## Contributing
