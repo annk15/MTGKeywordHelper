@@ -4,9 +4,9 @@ services:
     image: mysql
     container_name: mtg-keyword-helper-db
     ports:
-      - 3307:3306
+      - 3001:3306
     restart: always
     volumes:
-      - ./data:/var/lib/mysql
+      - ../data/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password

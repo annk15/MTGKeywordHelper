@@ -6,12 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-node_modules
-dist
-dist-ssr
-*.local
 
-# Editor directories and files
+# Environment
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -21,10 +17,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.env
+*.local
 
-database/.DS_Store
-database/data/
-database/venv/
-server/venv/
-__pycache__/
-*.pyc
+# Generated
+node_modules
+dist
+dist-ssr
+server/database/data/*

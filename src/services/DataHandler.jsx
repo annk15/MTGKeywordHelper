@@ -9,8 +9,8 @@ export function useData() {
 }
 
 async function fetchKeywordInfoData() {
-  try {
-    const response = await fetch(`${API_HOST_ADDRESS}:${API_HOST_PORT}/keyword-abilities`);
+
+    const response = await fetch(`${API_HOST_ADDRESS}:${API_HOST_PORT}/keyword-reminders`);
     console.log(response);
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
@@ -22,10 +22,7 @@ async function fetchKeywordInfoData() {
         return { ...item, imageUrl };
       })
     );
-  } catch (error) {
-    console.error('Error fetching card data:', error);
-    return [];
-  }
+
 }
 
 async function fetchKeywordImageData(keyword) {
