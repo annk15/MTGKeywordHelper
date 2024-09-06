@@ -3,18 +3,8 @@ import mysql.connector
 import re
 import time
 import urllib.parse
+import json
 from enum import Enum
-
-db_config = {
-  "host": "127.0.0.1",
-  "port": 3307,
-  "user": "root",
-  "password": "password"
-}
-
-keywords_source_url = "https://mtg.fandom.com/api.php?action=query&format=json&formatversion=2&list=categorymembers&cmlimit=500&cmtitle=Category%3AGlossary"
-reminder_source_url = "https://mtg.fandom.com/api.php?format=json&action=query&prop=revisions&rvprop=content&explaintext&redirects=1&titles="
-image_source_url = "https://api.scryfall.com/cards/random?q=oracle%3A"
 
 class LoggType(Enum):
     ERROR = 1
@@ -22,6 +12,10 @@ class LoggType(Enum):
     INFO = 3
 
 debug = LoggType.WARNING
+
+def read_config():
+    with open("../config.json", 'r') as file:
+        return json.load(file)
 
 def logg(text, type = None):
 
@@ -35,11 +29,10 @@ def logg(text, type = None):
     if debug.value >= type.value:
         print(type.name + " : " +  text)
 
-def init_database():
+def init_database(config):
 
   try:
-
-      cnx = mysql.connector.connect(**db_config)
+      cnx = mysql.connector.connect(**config)
       cursor = cnx.cursor()
 
       cursor.execute(
@@ -74,11 +67,11 @@ def init_database():
           if cnx:
               cnx.close()
 
-def update_database_reminders(keyword, reminder_text):
+def update_database_reminders(keyword, reminder_text, config):
 
   try:
 
-      cnx = mysql.connector.connect(**db_config)
+      cnx = mysql.connector.connect(**config)
       cursor = cnx.cursor()
 
       cursor.execute(
@@ -102,11 +95,11 @@ def update_database_reminders(keyword, reminder_text):
           if cnx:
               cnx.close()
 
-def update_database_image(keyword, image):
+def update_database_image(keyword, image, config):
 
   try:
 
-      cnx = mysql.connector.connect(**db_config)
+      cnx = mysql.connector.connect(**config)
       cursor = cnx.cursor()
 
       cursor.execute(
@@ -143,11 +136,11 @@ def clean_reminder(text):
 
     return cleaned_text
 
-def fetch_keyword_reminder(keyword):
+def fetch_keyword_reminder(keyword, source):
 
   keyword = keyword.replace(" ", "_")
 
-  url = (reminder_source_url + urllib.parse.quote(keyword))
+  url = (source + urllib.parse.quote(keyword))
 
   logg("Will fetch data from URL : " + url, LoggType.INFO)
 
@@ -189,10 +182,10 @@ def fetch_keyword_reminder(keyword):
 
   return None
 
-def fetch_keyword_image(keyword):
+def fetch_keyword_image(keyword, source):
 
     keyword = keyword.replace(" ","+oracle%3A").lower()
-    url = image_source_url+keyword
+    url = source+keyword
 
     logg("Will fetch image from url " + url, LoggType.INFO)
 
@@ -218,7 +211,7 @@ def fetch_keyword_image(keyword):
     return None
 
 def fetch_keyword_blacklist():
-    filename = "blacklist.txt"
+    filename = "../blacklist.txt"
     try:
         with open(filename, 'r') as file:
             lines = file.readlines()
@@ -228,8 +221,9 @@ def fetch_keyword_blacklist():
         logg(f"Failed to open blacklist file {filename}, all keywords will be allowed!", LoggType.INFO)
         return []
 
-def fetch_keywords(url):
+def fetch_keywords(source):
     keywords = []
+    url = source
     original_url = url
 
     keyword_blacklist = fetch_keyword_blacklist()
@@ -269,26 +263,30 @@ def main():
 
     logg("Adding keywords and descriptions to the database, please wait")
 
-    init_database()
+    config = read_config()
+    config_source = config["sources"]
+    config_database = config["database"]
+
+    init_database(config_database)
 
     keyword_count = 0
     failed_keywords = []
 
     fetch_start_time = time.time()
 
-    keywords = fetch_keywords(keywords_source_url)
+    keywords = fetch_keywords(config_source["keywords"])
 
     for keyword in keywords:
 
         logg("Processing keyword : " + keyword, LoggType.INFO)
 
-        keyword_reminder = fetch_keyword_reminder(keyword)
+        keyword_reminder = fetch_keyword_reminder(keyword, config_source["reminders"])
 
         if not keyword_reminder:
             failed_keywords.append(keyword)
             continue
 
-        image = fetch_keyword_image(keyword)
+        image = fetch_keyword_image(keyword, config_source["images"])
 
         if not image:
             logg("No image found for keyword", LoggType.WARNING)
@@ -296,8 +294,8 @@ def main():
 
         logg("Successfully fetched image for keyword", LoggType.INFO)
 
-        update_database_reminders(keyword, keyword_reminder)
-        update_database_image(keyword, image)
+        update_database_reminders(keyword, keyword_reminder, config_database)
+        update_database_image(keyword, image, config_database)
         keyword_count += 1
 
         logg("Added keyword " + keyword + " to database!")
@@ -308,4 +306,4 @@ def main():
         + "Total runtime : " + str(int(time.time() - fetch_start_time)) + " seconds")
 
 if __name__ == "__main__":
-  main()
+    main()

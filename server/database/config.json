@@ -1,0 +1,14 @@
+{
+    "database": {
+        "host": "127.0.0.1",
+        "port": 3001,
+        "user": "root",
+        "password": "password",
+        "database": "mtg"
+    },
+    "sources": {
+        "keywords": "https://mtg.fandom.com/api.php?action=query&format=json&formatversion=2&list=categorymembers&cmlimit=500&cmtitle=Category%3AGlossary",
+        "reminders": "https://mtg.fandom.com/api.php?format=json&action=query&prop=revisions&rvprop=content&explaintext&redirects=1&titles=",
+        "images": "https://api.scryfall.com/cards/random?q=oracle%3A"
+    }
+}

@@ -1,19 +1,15 @@
 echo "Will peform a clean on the database"
 
+cd ../docker
+
 docker compose down
 if [ $? != 0 ]; then
     echo "Failed to close docker compose container"
 fi
 
-rm -rdf data/*
+rm -rdf ../data/*
 if [ $? != 0 ]; then
-    echo "Failed to the clean database data folder"
-    exit 1
-fi
-
-rm -rdf venv
-if [ $? != 0 ]; then
-    echo "Failed to remove the python environment"
+    echo "Failed to the clean generated data"
     exit 1
 fi
 
